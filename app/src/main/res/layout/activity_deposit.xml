@@ -48,31 +48,22 @@
                 android:inputType="none" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/so_du"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="55dp"
-            android:layout_marginTop="10dp"
-            android:text="Số dư"
-            android:layout_below="@id/dropdown_frame"/>
-
-
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_below="@id/so_du"
+            android:layout_below="@id/dropdown_frame"
             android:layout_centerHorizontal="true"
-            android:id="@+id/balance_frame">
+            android:id="@+id/balance_frame"
+            android:layout_marginTop="15dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/coin_balance"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="0"
-                android:inputType="none" />
+                android:hint="Số dư"
+                android:inputType="none"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -87,11 +78,6 @@
             android:padding="15dp"
             android:id="@+id/input_frame">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Nhập số coin cần nạp" />
-
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="300dp"
@@ -102,31 +88,26 @@
                     android:id="@+id/coin_to_deposit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="0"
+                    android:hint="Số coin cần nạp"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Nhập địa chỉ ví" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center">
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/coin_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:hint="Địa chỉ ví"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
-
 
         <Button
             android:id="@+id/begin_deposit_button"
