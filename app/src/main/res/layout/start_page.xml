@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFE300"
+    tools:context=".StartPage">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:background="@drawable/layout_bg"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+
+        >
+
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/bitcoin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="CRYPTO-PAY"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:text="Dễ dàng giao dịch, nạp, rút các loại tiền mã hóa mà không cần phải chờ đợi!"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/start_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#FF7800"
+                android:text="Bắt đầu"
+                android:textSize="17dp" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

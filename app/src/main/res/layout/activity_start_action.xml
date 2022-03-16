@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".StartAction">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/bitcoin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="CRYPTO-PAY"
+        android:textColor="@color/black"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#FF7800"
+        android:text="Đăng ký"
+        android:textSize="17dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#DDDDDD"
+        android:layout_marginTop="30dp"/>
+
+    <Button
+        android:id="@+id/sign_up_facebook"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#FF7800"
+        android:text="Đăng ký với Facebook"
+        android:textSize="17dp" />
+
+    <Button
+        android:id="@+id/sign_up_google"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#FF7800"
+        android:text="Đăng ký với Google"
+        android:textSize="17dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#DDDDDD"
+        android:layout_marginTop="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Đã có tài khoản?"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="55dp"/>
+
+    <Button
+        android:id="@+id/sign_in"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="#FF7800"
+        android:text="Đăng nhập"
+        android:textSize="17dp" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@android:color/white"
+        android:text="Quay lại"
+        android:textColor="#7C7C7C"
+        android:textSize="17dp" />
+
+</LinearLayout>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFE300"
+    tools:context=".HomeFragment">
+
+        <ImageButton
+            android:id="@+id/account"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_account"/>
+
+        <ImageButton
+            android:id="@+id/notification"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_notification"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentEnd="true"/>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="800dp"
+            android:background="@drawable/layout_bg"
+            android:layout_alignParentBottom="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="30dp"
+                            android:hint="Chọn loại Coin">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/coin_dropdown"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="none" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="55dp"
+                            android:layout_marginTop="10dp"
+                            android:text="Số dư" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/coin_balance"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:inputType="none"
+                                    android:hint="0" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="30dp"
+                            android:text="Dịch vụ yêu thích"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="30dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/deposit_button"
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:background="@drawable/img_border"
+                                            android:src="@drawable/deposit"
+                                            android:clickable="true"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Nạp coin"
+                                            android:textColor="@color/black"
+                                            android:textSize="15dp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="30dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/withdraw_button"
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:background="@drawable/img_border"
+                                            android:src="@drawable/atm"
+                                            android:clickable="true"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Rút coin"
+                                            android:textColor="@color/black"
+                                            android:textSize="15dp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="30dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/code_button"
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:background="@drawable/img_border"
+                                            android:src="@drawable/qr"
+                                            android:clickable="true"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Mã QR"
+                                            android:textColor="@color/black"
+                                            android:textSize="15dp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/scan_button"
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:background="@drawable/img_border"
+                                            android:src="@drawable/scan"
+                                            android:clickable="true"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Quét mã"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="15dp"/>
+
+                                </LinearLayout>
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="5dp"
+                            android:layout_marginTop="20dp"
+                            android:background="#DDDDDD" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="30dp"
+                            android:layout_marginTop="20dp"
+                            android:text="Các dịch vụ khác"
+                            android:textColor="@color/black"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="30dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/transfer_button"
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:background="@drawable/img_border"
+                                            android:src="@drawable/transfer"
+                                            android:clickable="true"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Chuyển tiền"
+                                            android:textColor="@color/black"
+                                            android:textSize="15dp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="30dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/graph_button"
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:background="@drawable/img_border"
+                                            android:src="@drawable/graph"
+                                            android:clickable="true"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Biểu đồ"
+                                            android:textColor="@color/black"
+                                            android:textSize="15dp"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="30dp"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/exchange_button"
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:background="@drawable/img_border"
+                                            android:src="@drawable/exchange"
+                                            android:clickable="true"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Quy đổi"
+                                            android:textColor="@color/black"
+                                            android:textSize="15dp"/>
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                        <ImageView
+                                            android:id="@+id/buy_button"
+                                            android:layout_width="70dp"
+                                            android:layout_height="70dp"
+                                            android:background="@drawable/img_border"
+                                            android:src="@drawable/bill"
+                                            android:clickable="true"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Mua thẻ ĐT"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="15dp"/>
+
+                                </LinearLayout>
+
+                        </LinearLayout>
+
+                </LinearLayout>
+        </RelativeLayout>
+
+
+
+</RelativeLayout>
