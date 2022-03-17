@@ -102,10 +102,9 @@ public class RegisterPage extends AppCompatActivity {
                         }
                     });
                     Toast.makeText(RegisterPage.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegisterPage.this,Login.class);
-                    intent.putExtra("email",email);
-                    intent.putExtra("password",password);
+                    Intent intent = new Intent(RegisterPage.this,MainPage.class);
                     startActivity(intent);
+                    finishAffinity();
                 }
                 else{
                     Toast.makeText(RegisterPage.this,"Đăng ký thất bại!",Toast.LENGTH_SHORT).show();

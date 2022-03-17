@@ -13,6 +13,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,15 +33,13 @@ public class WithdrawActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_withdraw);
 
-        Bundle extras = getIntent().getExtras();
-        String my_email = extras.getString("email");
+        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
         ImageButton back = (ImageButton) findViewById(R.id.back_icon);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(WithdrawActivity.this, MainPage.class);
-                intent.putExtra("email",my_email);
                 startActivity(intent);
             }
         });

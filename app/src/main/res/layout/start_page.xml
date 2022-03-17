@@ -47,15 +47,15 @@
                 android:text="Dễ dàng giao dịch, nạp, rút các loại tiền mã hóa mà không cần phải chờ đợi!"
                 android:textAlignment="center" />
 
-            <Button
-                android:id="@+id/start_button"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:backgroundTint="#FF7800"
-                android:text="Bắt đầu"
-                android:textSize="17dp" />
+<!--            <Button-->
+<!--                android:id="@+id/start_button"-->
+<!--                android:layout_width="300dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:backgroundTint="#FF7800"-->
+<!--                android:text="Bắt đầu"-->
+<!--                android:textSize="17dp" />-->
 
 
         </LinearLayout>

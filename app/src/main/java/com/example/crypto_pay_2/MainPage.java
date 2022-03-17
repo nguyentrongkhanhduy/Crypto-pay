@@ -30,19 +30,11 @@ public class MainPage extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_page);
 
-        Bundle extras = getIntent().getExtras();
-        String my_email = "";
-        if (extras!=null){
-            my_email = extras.getString("email");
-        }
-
         botNav = findViewById(R.id.bottom_navigation);
         botNav.setOnItemSelectedListener(bottomNavMethod);
 
         Fragment start_frag = new HomeFragment();
-        Bundle data = new Bundle();
-        data.putString("email",my_email);
-        start_frag.setArguments(data);
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,start_frag).commit();
     }
 
@@ -51,12 +43,6 @@ public class MainPage extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             Fragment fragment = null;
-
-            Bundle extras = getIntent().getExtras();
-            String my_email = "";
-            if (extras!=null){
-                my_email = extras.getString("email");
-            }
 
             switch (item.getItemId()){
                 case R.id.home:
@@ -70,9 +56,6 @@ public class MainPage extends AppCompatActivity {
                     break;
             }
 
-            Bundle data = new Bundle();
-            data.putString("email",my_email);
-            fragment.setArguments(data);
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,fragment).commit();
 
             return true;

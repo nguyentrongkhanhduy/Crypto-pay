@@ -1,12 +1,26 @@
 package com.example.crypto_pay_2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +69,76 @@ public class WalletFragment extends Fragment {
         }
     }
 
+    ImageButton logOut;
+    ImageButton toProfile;
+    TextView name;
+    TextView email;
+    TextView phone;
+    ImageView avatar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_wallet, container, false);
+
+        creatUI(view);
+
+//        ImageButton logOut = (ImageButton) view.findViewById(R.id.log_out_button);
+        initUI();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wallet, container, false);
+        return view;
+
+
+
+    }
+
+    void creatUI(View view){
+        logOut = (ImageButton) view.findViewById(R.id.log_out_button);
+        name = (TextView) view.findViewById(R.id.name);
+        phone = (TextView) view.findViewById(R.id.phone);
+        email = (TextView) view.findViewById(R.id.email);
+        avatar = (ImageView) view.findViewById(R.id.avatar);
+        toProfile = (ImageButton) view.findViewById(R.id.to_profile);
+    }
+
+    void initUI(){
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(),Login.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        email.setText(my_email);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child: snapshot.getChildren()){
+                    phone.setText(String.valueOf(child.child("phone").getValue()));
+                    name.setText(String.valueOf(child.child("name").getValue()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        toProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }

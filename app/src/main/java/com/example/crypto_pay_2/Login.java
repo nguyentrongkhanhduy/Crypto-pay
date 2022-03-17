@@ -32,15 +32,6 @@ public class Login extends AppCompatActivity {
         EditText ed_txtEmail = (EditText) findViewById(id.email_or_phone);
         EditText ed_txtPassword = (EditText) findViewById(id.password);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null){
-            String email = extras.getString("email");
-            String password = extras.getString("password");
-
-            ed_txtEmail.setText(email);
-            ed_txtPassword.setText(password);
-        }
-
         Button returnButton = (Button) findViewById(R.id.back_button_after_register);
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override

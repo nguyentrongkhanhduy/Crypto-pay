@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -79,12 +81,12 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
         String[] item = {"bitcoin","ethereum","lvcoin"};
         AutoCompleteTextView autoCplt = view.findViewById(R.id.coin_dropdown);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.dropdown,item);
         autoCplt.setAdapter(adapter);
-
-        Bundle data = getArguments();
 
         TextInputEditText balance = (TextInputEditText) view.findViewById(R.id.coin_balance);
 
@@ -94,7 +96,7 @@ public class HomeFragment extends Fragment {
                 String item = adapterView.getItemAtPosition(i).toString();
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
-                ref.orderByChild("mail").equalTo(data.getString("email")).addValueEventListener(new ValueEventListener() {
+                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         Map<String,String> coinOwn = new HashMap<>();
@@ -117,7 +119,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(),DepositActivity.class);
-                intent.putExtra("email", data.getString("email"));
                 startActivity(intent);
             }
         });
@@ -127,7 +128,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(),WithdrawActivity.class);
-                intent.putExtra("email", data.getString("email"));
                 startActivity(intent);
             }
         });
@@ -177,6 +177,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        ImageButton profile = (ImageButton) view.findViewById(R.id.account);
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),ProfileActivity.class);
+                startActivity(intent);
             }
         });
 
