@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +28,27 @@ public class ProfileActivity extends AppCompatActivity {
     TextView editContact;
     TextView name;
 
+    LinearLayout locateFrame;
+    LinearLayout birthFrame;
+    LinearLayout genderFrame;
+    LinearLayout statusFrame;
+    LinearLayout occuFrame;
+    LinearLayout eduFrame;
+    LinearLayout homeFrame;
+    LinearLayout addressFrame;
+    LinearLayout mailFrame;
+
+    TextView location;
+    TextView birth;
+    TextView gender;
+    TextView status;
+    TextView occu;
+    TextView edu;
+    TextView home;
+    TextView address;
+    TextView mail;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +59,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         creatUI();
+
+        getInfo();
 
         initUI();
     }
@@ -49,9 +73,94 @@ public class ProfileActivity extends AppCompatActivity {
         editInfo = findViewById(R.id.to_edit_introduction);
         editContact = findViewById(R.id.to_edit_contact);
         name = findViewById(R.id.name);
+
+        locateFrame = findViewById(R.id.locate_frame);
+        birthFrame = findViewById(R.id.birth_frame);
+        genderFrame = findViewById(R.id.gender_frame);
+        statusFrame = findViewById(R.id.status_frame);
+        occuFrame = findViewById(R.id.occu_frame);
+        eduFrame = findViewById(R.id.edu_frame);
+        homeFrame = findViewById(R.id.home_frame);
+        addressFrame = findViewById(R.id.address_frame);
+        mailFrame = findViewById(R.id.mail_frame);
+
+        location = findViewById(R.id.city);
+        birth = findViewById(R.id.birth_day);
+        gender = findViewById(R.id.gender);
+        status = findViewById(R.id.status);
+        occu = findViewById(R.id.occupation);
+        edu = findViewById(R.id.education);
+        home = findViewById(R.id.home_town);
+        address = findViewById(R.id.address);
+        mail = findViewById(R.id.email);
+
+    }
+
+    private void  getInfo(){
+        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child: snapshot.getChildren()){
+                    name.setText(String.valueOf(child.child("name").getValue()));
+
+                    mail.setText(String.valueOf(child.child("mail").getValue()));
+                    mailFrame.setVisibility(View.VISIBLE);
+
+                    if(!String.valueOf(child.child("city").getValue()).equals("unknown")){
+                        location.setText(String.valueOf(child.child("city").getValue()));
+                        locateFrame.setVisibility(View.VISIBLE);
+                    }
+
+                    if(!String.valueOf(child.child("birth").getValue()).equals("unknown")){
+                        birth.setText(String.valueOf(child.child("birth").getValue()));
+                        birthFrame.setVisibility(View.VISIBLE);
+                    }
+
+                    if(!String.valueOf(child.child("gender").getValue()).equals("unknown")){
+                        gender.setText(String.valueOf(child.child("gender").getValue()));
+                        genderFrame.setVisibility(View.VISIBLE);
+                    }
+
+                    if(!String.valueOf(child.child("status").getValue()).equals("unknown")){
+                        status.setText(String.valueOf(child.child("status").getValue()));
+                        statusFrame.setVisibility(View.VISIBLE);
+                    }
+
+                    if(!String.valueOf(child.child("occupation").getValue()).equals("unknown")){
+                        occu.setText(String.valueOf(child.child("occupation").getValue()));
+                        occuFrame.setVisibility(View.VISIBLE);
+                    }
+
+                    if(!String.valueOf(child.child("education").getValue()).equals("unknown")){
+                        edu.setText(String.valueOf(child.child("education").getValue()));
+                        eduFrame.setVisibility(View.VISIBLE);
+                    }
+
+                    if(!String.valueOf(child.child("hometown").getValue()).equals("unknown")){
+                        home.setText(String.valueOf(child.child("hometown").getValue()));
+                        homeFrame.setVisibility(View.VISIBLE);
+                    }
+
+                    if(!String.valueOf(child.child("address").getValue()).equals("unknown")){
+                        address.setText(String.valueOf(child.child("address").getValue()));
+                        addressFrame.setVisibility(View.VISIBLE);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void initUI(){
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,23 +192,6 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, EditContactActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
-        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot child: snapshot.getChildren()){
-                    name.setText(String.valueOf(child.child("name").getValue()));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

@@ -18,13 +18,15 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/save_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="26dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
         android:text="Lưu"
-        android:textSize="25dp"
-        android:layout_marginEnd="20dp"/>
+        android:textSize="25dp" />
 
     <ImageButton
         android:id="@+id/back_icon"
@@ -44,14 +46,14 @@
             android:id="@+id/city_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bạn đang sống tại"/>
+                android:text="Bạn đang sống tại" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -63,25 +65,24 @@
                     android:id="@+id/city"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="text"
-                    android:hint="Xác định nơi bạn đang sống"/>
+                    android:hint="Xác định nơi bạn đang sống" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/birth_frame"
-            android:layout_below="@id/city_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_below="@id/city_frame"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sinh nhật"/>
+                android:text="Sinh nhật" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -93,25 +94,24 @@
                     android:id="@+id/birth_day"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="date"
-                    android:hint="Xác định ngày sinh của bạn"/>
+                    android:hint="Xác định ngày sinh của bạn" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/gender_frame"
-            android:layout_below="@id/birth_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_below="@id/birth_frame"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Giới tính"/>
+                android:text="Giới tính" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
@@ -123,130 +123,126 @@
                     android:id="@+id/gender"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="none" />
+                    android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
-                android:id="@+id/home_frame"
-                android:layout_below="@id/gender_frame"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/home_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gender_frame"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp">
+                android:text="Quê quán" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Quê quán"/>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/home_town"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Xác định quê quán của bạn" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/home_town"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="date"
-                        android:hint="Xác định quê quán của bạn"/>
-                </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/occu_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/home_frame"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/occu_frame"
-                android:layout_below="@id/home_frame"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp">
+                android:text="Nghề nghiệp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nghề nghiệp"/>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/occupation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Xác định nghề nghiệp của bạn" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/occupation"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="date"
-                        android:hint="Xác định nghề nghiệp của bạn"/>
-                </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/status_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/occu_frame"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/status_frame"
-                android:layout_below="@id/occu_frame"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp">
+                android:text="Tình trạng hôn nhân" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Tình trạng hôn nhân"/>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                <AutoCompleteTextView
+                    android:id="@+id/status"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Xác định TTHN của bạn"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/status"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="date"
-                        android:hint="Xác định TTHN của bạn"/>
-                </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/edu_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/status_frame"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/edu_frame"
-                android:layout_below="@id/status_frame"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp">
+                android:text="Học vấn" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sinh nhật"/>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/education"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="date"
-                        android:hint="Xác định học vấn của bạn"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-
-
+                <AutoCompleteTextView
+                    android:id="@+id/education"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Xác định học vấn của bạn"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
