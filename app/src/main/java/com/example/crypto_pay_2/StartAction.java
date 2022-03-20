@@ -20,15 +20,6 @@ public class StartAction extends AppCompatActivity {
 
         setContentView(R.layout.activity_start_action);
 
-        Button returnButton = (Button) findViewById(R.id.back_button);
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAction.this,StartPage.class);
-                startActivity(intent);
-            }
-        });
-
         Button registerButton = (Button) findViewById(R.id.sign_up_button);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

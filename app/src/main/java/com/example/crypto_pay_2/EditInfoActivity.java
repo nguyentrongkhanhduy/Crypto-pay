@@ -11,9 +11,11 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,6 +35,10 @@ public class EditInfoActivity extends AppCompatActivity {
     AutoCompleteTextView status;
     AutoCompleteTextView education;
 
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+    FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+    String my_email = current.getEmail();
+    DatabaseReference thisUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +71,7 @@ public class EditInfoActivity extends AppCompatActivity {
     }
 
     private void getInfo(){
-        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+
         ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -87,17 +92,17 @@ public class EditInfoActivity extends AppCompatActivity {
                         occupation.setText(String.valueOf(child.child("occupation").getValue()));
                     }
 
-//                    if(!String.valueOf(child.child("gender").getValue()).equals("unknown")){
-//                        gender.setText(String.valueOf(child.child("gender").getValue()));
-//                    }
-//
-//                    if(!String.valueOf(child.child("status").getValue()).equals("unknown")){
-//                        status.setText(String.valueOf(child.child("status").getValue()));
-//                    }
-//
-//                    if(!String.valueOf(child.child("education").getValue()).equals("unknown")){
-//                        education.setText(String.valueOf(child.child("education").getValue()));
-//                    }
+                    if(!String.valueOf(child.child("gender").getValue()).equals("unknown")){
+                        gender.setText(String.valueOf(child.child("gender").getValue()));
+                    }
+
+                    if(!String.valueOf(child.child("status").getValue()).equals("unknown")){
+                        status.setText(String.valueOf(child.child("status").getValue()));
+                    }
+
+                    if(!String.valueOf(child.child("education").getValue()).equals("unknown")){
+                        education.setText(String.valueOf(child.child("education").getValue()));
+                    }
                 }
             }
 
@@ -112,15 +117,53 @@ public class EditInfoActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EditInfoActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                finish();
+                EditInfoActivity.super.onBackPressed();
             }
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot child : snapshot.getChildren()){
+                            thisUser = child.getRef();
+                            break;
+                        }
+
+                        if(!city.getText().toString().matches("")){
+                            thisUser.child("city").setValue(city.getText().toString());
+                        }
+                        if(!birth.getText().toString().matches("")){
+                            thisUser.child("birth").setValue(birth.getText().toString());
+                        }
+                        if(!gender.getText().toString().matches("")){
+                            thisUser.child("gender").setValue(gender.getText().toString());
+                        }
+                        if(!hometown.getText().toString().matches("")){
+                            thisUser.child("hometown").setValue(hometown.getText().toString());
+                        }
+                        if(!education.getText().toString().matches("")){
+                            thisUser.child("education").setValue(education.getText().toString());
+                        }
+                        if(!occupation.getText().toString().matches("")){
+                            thisUser.child("occupation").setValue(occupation.getText().toString());
+                        }
+                        if(!status.getText().toString().matches("")){
+                            thisUser.child("status").setValue(status.getText().toString());
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                Toast.makeText(EditInfoActivity.this,"Cập nhật thông tin thành công!",Toast.LENGTH_SHORT).show();
+                finish();
+                overridePendingTransition( 0, 0);
+                startActivity(getIntent());
+                overridePendingTransition( 0, 0);
             }
         });
 

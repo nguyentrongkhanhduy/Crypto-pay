@@ -53,7 +53,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bạn đang sống tại" />
+                android:text="Bạn đang sống tại thành phố" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -64,8 +64,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/city"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Xác định nơi bạn đang sống" />
+                    android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -93,8 +92,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/birth_day"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="Xác định ngày sinh của bạn" />
+                    android:layout_height="match_parent" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -116,14 +114,14 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:hint="Xác định giới tính của bạn">
+                android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
                     android:id="@+id/gender"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="none"/>
+                    android:inputType="none"
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -152,7 +150,7 @@
                     android:id="@+id/home_town"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Xác định quê quán của bạn" />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -181,7 +179,7 @@
                     android:id="@+id/occupation"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Xác định nghề nghiệp của bạn" />
+                     />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
@@ -210,7 +208,6 @@
                     android:id="@+id/status"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Xác định TTHN của bạn"
                     android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -240,7 +237,6 @@
                     android:id="@+id/education"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Xác định học vấn của bạn"
                     android:inputType="none"/>
             </com.google.android.material.textfield.TextInputLayout>
 

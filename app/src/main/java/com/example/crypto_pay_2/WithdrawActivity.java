@@ -39,8 +39,7 @@ public class WithdrawActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WithdrawActivity.this, MainPage.class);
-                startActivity(intent);
+                WithdrawActivity.super.onBackPressed();
             }
         });
 

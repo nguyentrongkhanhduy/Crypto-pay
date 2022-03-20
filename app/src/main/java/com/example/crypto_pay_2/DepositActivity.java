@@ -40,8 +40,7 @@ public class DepositActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DepositActivity.this, MainPage.class);
-                startActivity(intent);
+                DepositActivity.super.onBackPressed();
             }
         });
 

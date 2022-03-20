@@ -18,13 +18,15 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/save_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="26dp"
+        android:layout_marginEnd="20dp"
         android:text="Lưu"
         android:textSize="25dp"
-        android:layout_marginEnd="20dp"/>
+        android:clickable="true"/>
 
     <ImageButton
         android:id="@+id/back_icon"
@@ -39,19 +41,19 @@
         android:layout_height="800dp"
         android:layout_alignParentBottom="true"
         android:background="@drawable/layout_bg">
-        
+
         <LinearLayout
             android:id="@+id/city_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Địa chỉ"/>
+                android:text="Địa chỉ" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -62,26 +64,24 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/address"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text"
-                    android:hint="Nhập địa chỉ của bạn"/>
+                    android:layout_height="match_parent"/>
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/birth_frame"
-            android:layout_below="@id/city_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:layout_below="@id/city_frame"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"/>
+                android:text="Email" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -93,8 +93,7 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="date"
-                    android:hint="duy@gmail.com"/>
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>

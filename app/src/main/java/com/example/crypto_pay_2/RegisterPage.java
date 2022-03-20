@@ -44,8 +44,7 @@ public class RegisterPage extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegisterPage.this, com.example.crypto_pay_2.StartAction.class);
-                startActivity(intent);
+                RegisterPage.super.onBackPressed();
             }
         });
 

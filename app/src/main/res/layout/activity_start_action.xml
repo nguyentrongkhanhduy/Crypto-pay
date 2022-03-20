@@ -82,14 +82,5 @@
         android:text="Đăng nhập"
         android:textSize="17dp" />
 
-    <Button
-        android:id="@+id/back_button"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="@android:color/white"
-        android:text="Quay lại"
-        android:textColor="#7C7C7C"
-        android:textSize="17dp" />
 
 </LinearLayout>
