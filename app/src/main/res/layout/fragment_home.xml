@@ -6,13 +6,14 @@
     android:background="#FFE300"
     tools:context=".HomeFragment">
 
-        <ImageButton
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/account"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/ic_account" />
+            android:background="@drawable/ic_account"
+            android:clickable="true" />
 
         <ImageButton
             android:id="@+id/notification"

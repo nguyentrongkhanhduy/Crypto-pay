@@ -1,10 +1,19 @@
 package com.example.crypto_pay_2;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -13,11 +22,15 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.io.IOException;
+
 public class MainPage extends AppCompatActivity {
 
     private BottomNavigationView botNav;
 
 //    Bundle extras = getIntent().getExtras();
+
+
 
 
     @Override
@@ -61,5 +74,8 @@ public class MainPage extends AppCompatActivity {
             return true;
         }
     };
+
+
+
 
 }

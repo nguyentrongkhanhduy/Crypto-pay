@@ -93,15 +93,16 @@ public class EditInfoActivity extends AppCompatActivity {
                     }
 
                     if(!String.valueOf(child.child("gender").getValue()).equals("unknown")){
-                        gender.setText(String.valueOf(child.child("gender").getValue()));
+                        gender.setText(String.valueOf(child.child("gender").getValue()),false);
                     }
 
                     if(!String.valueOf(child.child("status").getValue()).equals("unknown")){
-                        status.setText(String.valueOf(child.child("status").getValue()));
+                        status.setText(String.valueOf(child.child("status").getValue()),false);
                     }
 
                     if(!String.valueOf(child.child("education").getValue()).equals("unknown")){
-                        education.setText(String.valueOf(child.child("education").getValue()));
+                        education.setText(String.valueOf(child.child("education").getValue()),false);
+
                     }
                 }
             }

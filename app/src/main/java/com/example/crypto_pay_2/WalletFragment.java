@@ -1,6 +1,7 @@
 package com.example.crypto_pay_2;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -76,6 +79,8 @@ public class WalletFragment extends Fragment {
     TextView phone;
     ImageView avatar;
 
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -112,6 +117,9 @@ public class WalletFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        Uri photoUrl = currentUser.getPhotoUrl();
+        Glide.with(this).load(photoUrl).error(R.drawable.avatardefault).into(avatar);
 
         String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         email.setText(my_email);

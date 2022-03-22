@@ -1,27 +1,47 @@
 package com.example.crypto_pay_2;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
+
 public class ProfileActivity extends AppCompatActivity {
 
-    ImageButton back;
+    ImageView avatar;
     ImageButton editAvatar;
+    ImageButton back;
     ImageButton qrCode;
     ImageButton logOut;
     TextView editInfo;
@@ -48,7 +68,32 @@ public class ProfileActivity extends AppCompatActivity {
     TextView address;
     TextView mail;
 
+    String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+    EditAvatarActivity editAvatarActivity = new EditAvatarActivity();
+
+//    public static final int MY_REQUEST_CODE = 10;
+//    private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//                    if (result.getResultCode() == RESULT_OK){
+//                        Intent intent = result.getData();
+//                        if (intent == null){
+//                            return;
+//                        }
+//                        Uri uri = intent.getData();
+//
+//                        try {
+//                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
+//                            editAvatarActivity.setBitmapImageView(bitmap);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +111,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void  creatUI(){
+        avatar = findViewById(R.id.avatar);
+
         back = findViewById(R.id.back_icon);
         editAvatar = findViewById(R.id.edit_avatar);
         qrCode = findViewById(R.id.money_code);
@@ -97,7 +144,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void  getInfo(){
-        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        Uri photoUrl = currentUser.getPhotoUrl();
+        Glide.with(this).load(photoUrl).error(R.drawable.avatardefault).into(avatar);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
         ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
@@ -193,5 +241,34 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        editAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this,editAvatarActivity.getClass());
+                startActivity(intent);
+            }
+        });
     }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if (requestCode == MY_REQUEST_CODE){
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                openGallery();
+//            }
+//            else{
+//                Toast.makeText(this,"Vui lòng cấp quyền truy cập thư viện ảnh",Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//    }
+//
+//    public void openGallery(){
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        mActivityResultLauncher.launch(Intent.createChooser(intent, "Chọn ảnh đại diện"));
+//    }
+
 }
