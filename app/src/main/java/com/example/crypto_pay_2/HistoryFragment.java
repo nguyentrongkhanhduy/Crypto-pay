@@ -1,12 +1,28 @@
 package com.example.crypto_pay_2;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +71,86 @@ public class HistoryFragment extends Fragment {
         }
     }
 
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    String my_email = currentUser.getEmail();
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("history");
+
+
+    private RecyclerView rvHistory;
+    private HistoryAdapter historyAdapter;
+    private List<History> mListHistory;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_history, container, false);
+
+
+        initUI(view);
+
+        getInfo();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false);
+        return view;
     }
+
+    private void initUI(View view){
+        rvHistory = view.findViewById(R.id.list_history);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        rvHistory.setLayoutManager(linearLayoutManager);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this.getActivity(), DividerItemDecoration.VERTICAL);
+        rvHistory.addItemDecoration(dividerItemDecoration);
+
+        mListHistory = new ArrayList<>();
+        historyAdapter = new HistoryAdapter(mListHistory);
+
+        rvHistory.setAdapter(historyAdapter);
+    }
+
+
+    private void getInfo(){
+        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Map<String,String> trade = new HashMap<>();
+                for(DataSnapshot child:snapshot.getChildren()){
+                    trade = (HashMap) child.child("history").getValue();
+                }
+                Object[] a = trade.values().toArray();
+                for (int i = 0; i < a.length; i++){
+                    ref2.orderByChild("id").equalTo(String.valueOf(a[i])).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            History history = new History(String.valueOf(snapshot.child("name").getValue()),
+                                    String.valueOf(snapshot.child("amount").getValue()),
+                                    String.valueOf(snapshot.child("date").getValue()),
+                                    String.valueOf(snapshot.child("time").getValue()),
+                                    String.valueOf(snapshot.child("from").getValue()),
+                                    String.valueOf(snapshot.child("to").getValue()),
+                                    String.valueOf(snapshot.child("id").getValue()),
+                                    String.valueOf(snapshot.child("message").getValue()));
+                            mListHistory.add(history);
+
+                            historyAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        }
+
 }

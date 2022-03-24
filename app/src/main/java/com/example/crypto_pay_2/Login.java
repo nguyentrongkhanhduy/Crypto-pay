@@ -1,6 +1,6 @@
 package com.example.crypto_pay_2;
 
-import static com.example.crypto_pay_2.R.*;
+import static com.example.crypto_pay_2.R.id;
 
 import android.content.Intent;
 import android.os.Bundle;

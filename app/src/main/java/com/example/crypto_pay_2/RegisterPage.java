@@ -16,13 +16,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 public class RegisterPage extends AppCompatActivity {
 
@@ -115,26 +115,9 @@ public class RegisterPage extends AppCompatActivity {
     private void addNewMember(int count, String name, String email, String phone){
         String nextChild = String.valueOf(count+1);
         String unknown = "unknown";
-        HashMap<String,Object> map = new HashMap<>();
-        map.put("name",name);
-        map.put("phone",phone);
-        map.put("mail",email);
-        map.put("address",unknown);
-        map.put("city",unknown);
-        map.put("gender",unknown);
-        map.put("birth",unknown);
-        map.put("status",unknown);
-        map.put("education",unknown);
-        map.put("occupation",unknown);
-        map.put("hometown",unknown);
-//        Toast.makeText(RegisterPage.this,nextChild,Toast.LENGTH_SHORT).show();
-        user.child(nextChild).updateChildren(map);
+        User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown);
+        user.child(nextChild).setValue(registered);
         Coin newCoin = new Coin(0,0,0);
-
-
         user.child(nextChild).child("own").setValue(newCoin);
     }
-
-
-
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/transaction_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        />
+
+
+    <TextView
+        android:id="@+id/transaction_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tiền"
+        android:textColor="@color/black"
+        android:textSize="17dp"
+        />
+
+<!--    <TextView-->
+<!--        android:id="@+id/transaction_from"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Từ"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="17dp"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/transaction_to"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Đến"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="17dp"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/transaction_date"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Ngày"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="17dp"-->
+<!--        />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/transaction_time"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Thời gian"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:textSize="17dp"-->
+<!--        />-->
+
+</LinearLayout>
