@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +7,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.crypto_pay_2.Model.History;
+import com.example.crypto_pay_2.R;
 
 import java.util.List;
 

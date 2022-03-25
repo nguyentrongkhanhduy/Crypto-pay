@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.crypto_pay_2.Adapter.HistoryAdapter;
+import com.example.crypto_pay_2.Activity.MainPage;
+import com.example.crypto_pay_2.Model.History;
+import com.example.crypto_pay_2.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -81,6 +85,8 @@ public class HistoryFragment extends Fragment {
     private HistoryAdapter historyAdapter;
     private List<History> mListHistory;
 
+    private MainPage mainPage;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -97,10 +103,11 @@ public class HistoryFragment extends Fragment {
 
     private void initUI(View view){
         rvHistory = view.findViewById(R.id.list_history);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getActivity());
+        mainPage = (MainPage) getActivity();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mainPage);
         rvHistory.setLayoutManager(linearLayoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this.getActivity(), DividerItemDecoration.VERTICAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mainPage, DividerItemDecoration.VERTICAL);
         rvHistory.addItemDecoration(dividerItemDecoration);
 
         mListHistory = new ArrayList<>();
@@ -108,6 +115,7 @@ public class HistoryFragment extends Fragment {
 
         rvHistory.setAdapter(historyAdapter);
     }
+
 
 
     private void getInfo(){
@@ -123,16 +131,17 @@ public class HistoryFragment extends Fragment {
                     ref2.orderByChild("id").equalTo(String.valueOf(a[i])).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            History history = new History(String.valueOf(snapshot.child("name").getValue()),
-                                    String.valueOf(snapshot.child("amount").getValue()),
-                                    String.valueOf(snapshot.child("date").getValue()),
-                                    String.valueOf(snapshot.child("time").getValue()),
-                                    String.valueOf(snapshot.child("from").getValue()),
-                                    String.valueOf(snapshot.child("to").getValue()),
-                                    String.valueOf(snapshot.child("id").getValue()),
-                                    String.valueOf(snapshot.child("message").getValue()));
-                            mListHistory.add(history);
-
+                            for(DataSnapshot child: snapshot.getChildren()){
+                                History history = new History(String.valueOf(child.child("name").getValue()),
+                                        String.valueOf(child.child("amount").getValue()),
+                                        String.valueOf(child.child("date").getValue()),
+                                        String.valueOf(child.child("time").getValue()),
+                                        String.valueOf(child.child("from").getValue()),
+                                        String.valueOf(child.child("to").getValue()),
+                                        String.valueOf(child.child("id").getValue()),
+                                        String.valueOf(child.child("message").getValue()));
+                                mListHistory.add(history);
+                            }
                             historyAdapter.notifyDataSetChanged();
                         }
 
@@ -142,7 +151,6 @@ public class HistoryFragment extends Fragment {
                         }
                     });
                 }
-
             }
 
             @Override
@@ -150,7 +158,5 @@ public class HistoryFragment extends Fragment {
 
             }
         });
-
         }
-
 }

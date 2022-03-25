@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Model;
 
 import java.util.HashMap;
 import java.util.Map;

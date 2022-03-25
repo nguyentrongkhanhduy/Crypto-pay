@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Activity;
 
 import static com.example.crypto_pay_2.R.id;
 
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.crypto_pay_2.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;

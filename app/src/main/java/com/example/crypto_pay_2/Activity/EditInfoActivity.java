@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

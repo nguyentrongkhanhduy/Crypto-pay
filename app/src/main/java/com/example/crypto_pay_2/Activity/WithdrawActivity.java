@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DepositActivity extends AppCompatActivity {
+public class WithdrawActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,22 +31,21 @@ public class DepositActivity extends AppCompatActivity {
         requestWindowFeature(getWindow().FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-        setContentView(R.layout.activity_deposit);
+        setContentView(R.layout.activity_withdraw);
 
         String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
 
         ImageButton back = (ImageButton) findViewById(R.id.back_icon);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DepositActivity.super.onBackPressed();
+                WithdrawActivity.super.onBackPressed();
             }
         });
 
         String[] item = {"bitcoin","ethereum","lvcoin"};
         AutoCompleteTextView autoCplt = findViewById(R.id.coin_dropdown);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DepositActivity.this, R.layout.dropdown,item);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(WithdrawActivity.this, R.layout.dropdown,item);
         autoCplt.setAdapter(adapter);
 
         TextInputEditText balance = (TextInputEditText) findViewById(R.id.coin_balance);
@@ -73,7 +73,5 @@ public class DepositActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 }

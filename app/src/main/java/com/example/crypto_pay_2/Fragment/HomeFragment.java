@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Fragment;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.crypto_pay_2.Activity.ConvertActivity;
+import com.example.crypto_pay_2.Activity.DepositActivity;
+import com.example.crypto_pay_2.Activity.ProfileActivity;
+import com.example.crypto_pay_2.Activity.ScanActivity;
+import com.example.crypto_pay_2.Activity.SearchCoinActivity;
+import com.example.crypto_pay_2.Activity.QrActivity;
+import com.example.crypto_pay_2.R;
+import com.example.crypto_pay_2.Activity.TransferActivity;
+import com.example.crypto_pay_2.Activity.WithdrawActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -166,7 +175,7 @@ public class HomeFragment extends Fragment {
         deposit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),DepositActivity.class);
+                Intent intent = new Intent(getActivity(), DepositActivity.class);
                 startActivity(intent);
             }
         });
@@ -174,7 +183,7 @@ public class HomeFragment extends Fragment {
         withdraw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),WithdrawActivity.class);
+                Intent intent = new Intent(getActivity(), WithdrawActivity.class);
                 startActivity(intent);
             }
         });
@@ -198,7 +207,7 @@ public class HomeFragment extends Fragment {
         transfer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),TransferActivity.class);
+                Intent intent = new Intent(getActivity(), TransferActivity.class);
                 startActivity(intent);
             }
         });
@@ -206,14 +215,16 @@ public class HomeFragment extends Fragment {
         graph.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), SearchCoinActivity.class);
+                startActivity(intent);
             }
         });
 
         exchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), ConvertActivity.class);
+                startActivity(intent);
             }
         });
 

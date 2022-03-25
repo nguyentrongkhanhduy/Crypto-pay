@@ -1,39 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HistoryFragment"
+    tools:context=".Fragment.HistoryFragment"
     android:background="#FFE300">
 
-<!--    <TextView-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="26dp"-->
-<!--        android:text="Lịch sử giao dịch"-->
-<!--        android:textColor="@color/black"-->
-<!--        android:textSize="25dp"-->
-<!--        android:textStyle="bold" />-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="Lịch sử giao dịch"
+        android:textColor="@color/black"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
-<!--    <RelativeLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="800dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:background="@drawable/layout_bg">-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/layout_bg">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"/>
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/history_layout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
+    </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/list_history"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-<!--        </LinearLayout>-->
-<!--    </RelativeLayout>-->
-
-</LinearLayout>
+</RelativeLayout>

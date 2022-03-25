@@ -6,11 +6,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
 
-<!--    <uses-feature-->
-<!--        android:name="android.hardware.camera"-->
-<!--        android:required="false"/>-->
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -20,46 +17,52 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cryptopay2">
         <activity
-            android:name=".ScanActivity"
+            android:name=".Activity.ConvertActivity"
             android:exported="false" />
         <activity
-            android:name=".QrActivity"
+            android:name=".Activity.SearchCoinActivity"
             android:exported="false" />
         <activity
-            android:name=".TransferActivity"
+            android:name=".Activity.ScanActivity"
             android:exported="false" />
         <activity
-            android:name=".EditAvatarActivity"
+            android:name=".Activity.QrActivity"
             android:exported="false" />
         <activity
-            android:name=".EditContactActivity"
+            android:name=".Activity.TransferActivity"
             android:exported="false" />
         <activity
-            android:name=".EditInfoActivity"
+            android:name=".Activity.EditAvatarActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".Activity.EditContactActivity"
             android:exported="false" />
         <activity
-            android:name=".WithdrawActivity"
+            android:name=".Activity.EditInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".DepositActivity"
+            android:name=".Activity.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".MainPage"
+            android:name=".Activity.WithdrawActivity"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".Activity.DepositActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterPage"
+            android:name=".Activity.MainPage"
             android:exported="false" />
         <activity
-            android:name=".StartAction"
+            android:name=".Activity.Login"
             android:exported="false" />
         <activity
-            android:name=".StartPage"
+            android:name=".Activity.RegisterPage"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.StartAction"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.StartPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

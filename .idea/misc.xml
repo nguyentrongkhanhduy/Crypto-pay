@@ -15,6 +15,7 @@
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/drawable/ic_wallet.xml" value="0.1945" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/drawable/img_border.xml" value="0.2085" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/drawable/layout_bg.xml" value="0.1085" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_convert.xml" value="0.33" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_deposit.xml" value="0.2901155327342747" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_edit_avatar.xml" value="0.18426678067550234" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_edit_contact.xml" value="0.1" />
@@ -27,10 +28,12 @@
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_qr_and_scan.xml" value="0.1" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_register_page.xml" value="0.22447916666666667" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_scan.xml" value="0.14356435643564355" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_search_coin.xml" value="0.25" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_start_action.xml" value="0.18426678067550234" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_transfer.xml" value="0.25" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_wallet.xml" value="0.18426678067550234" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_withdraw.xml" value="0.25" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/currency_rv_item.xml" value="0.25" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/dropdown.xml" value="0.18426678067550234" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/fragment_edit_avatar.xml" value="0.12740487387772553" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/fragment_history.xml" value="0.22447916666666667" />

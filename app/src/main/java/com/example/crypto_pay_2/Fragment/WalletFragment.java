@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Fragment;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.crypto_pay_2.Activity.ProfileActivity;
+import com.example.crypto_pay_2.Activity.Login;
+import com.example.crypto_pay_2.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -112,7 +115,7 @@ public class WalletFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(),Login.class);
+                Intent intent = new Intent(getActivity(), Login.class);
                 startActivity(intent);
                 getActivity().finish();
             }
@@ -143,7 +146,7 @@ public class WalletFragment extends Fragment {
         toProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),ProfileActivity.class);
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.crypto_pay_2.R;
 
 public class StartAction extends AppCompatActivity {
 
@@ -41,7 +43,7 @@ public class StartAction extends AppCompatActivity {
         signinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(StartAction.this, com.example.crypto_pay_2.Login.class);
+                Intent intent = new Intent(StartAction.this, Login.class);
                 startActivity(intent);
             }
         });

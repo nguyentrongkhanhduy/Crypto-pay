@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TransferActivity"
+    tools:context=".Activity.TransferActivity"
     android:background="#FEE300">
 
     <ImageButton
@@ -37,10 +37,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
+            android:layout_marginTop="30dp"
             android:backgroundTint="#FF7800"
             android:text="Quét mã"
-            android:textSize="17dp"
-            android:layout_marginTop="30dp" />
+            android:textSize="17dp" />
 
         <LinearLayout
             android:layout_below="@id/to_scan"

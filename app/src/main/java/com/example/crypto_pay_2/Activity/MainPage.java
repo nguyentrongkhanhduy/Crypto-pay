@@ -1,4 +1,4 @@
-package com.example.crypto_pay_2;
+package com.example.crypto_pay_2.Activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -8,6 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.crypto_pay_2.Fragment.HistoryFragment;
+import com.example.crypto_pay_2.Fragment.HomeFragment;
+import com.example.crypto_pay_2.Fragment.WalletFragment;
+import com.example.crypto_pay_2.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
