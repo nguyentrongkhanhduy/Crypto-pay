@@ -22,7 +22,7 @@
         android:text="Mã giao dịch"
         android:textColor="@color/black"
         android:textSize="25dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,21 +47,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="100dp"/>
 
-        <Button
-            android:id="@+id/generate_qr"
-            android:layout_width="300dp"
+        <ProgressBar
+            android:id="@+id/idPBLoading"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:backgroundTint="#FF7800"
-            android:text="Sinh mã QR"
-            android:textSize="17dp" />
-
+            android:layout_centerInParent="true"
+            android:indeterminateTint="#FEE300"
+            android:visibility="gone"/>
 
     </RelativeLayout>
-
-
 
     </RelativeLayout>

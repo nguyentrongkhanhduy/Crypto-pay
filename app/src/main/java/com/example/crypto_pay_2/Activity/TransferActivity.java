@@ -45,6 +45,7 @@ public class TransferActivity extends AppCompatActivity {
     Button find;
     Button transferBegin;
     Button scan;
+    Button recieveBegin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class TransferActivity extends AppCompatActivity {
         find = findViewById(R.id.find_user);
         transferBegin = findViewById(R.id.begin_transfer_button);
         scan = findViewById(R.id.to_scan);
-
+        recieveBegin = findViewById(R.id.begin_recieve_button);
     }
 
     private void creatUI(){
@@ -89,33 +90,6 @@ public class TransferActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TransferActivity.super.onBackPressed();
-            }
-        });
-
-        String[] item = {"bitcoin","ethereum","lvcoin"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dropdown,item);
-        coin.setAdapter(adapter);
-
-        coin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String item = adapterView.getItemAtPosition(i).toString();
-
-                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Map<String,String> coinOwn = new HashMap<>();
-                        for (DataSnapshot child: snapshot.getChildren()){
-                            coinOwn = (HashMap) child.child("own").getValue();
-                        }
-                        balance.setText(String.valueOf(coinOwn.get(item)));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
             }
         });
 
@@ -245,12 +219,121 @@ public class TransferActivity extends AppCompatActivity {
             }
         });
 
+        recieveBegin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (coin.getText().toString().equals("")){
+                    Toast.makeText(TransferActivity.this, "Vui lòng chọn loại Coin!", Toast.LENGTH_SHORT).show();
+                }
+                else if (transferCoin.getText().toString().equals("")){
+                    Toast.makeText(TransferActivity.this, "Vui lòng nhập khoảng muốn giao dịch!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent = new Intent(TransferActivity.this, RecieveActivity.class);
+                    intent.putExtra("type",coin.getText().toString());
+                    intent.putExtra("amount",transferCoin.getText().toString());
+                    ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot child: snapshot.getChildren()){
+                                intent.putExtra("name",child.child("name").getValue().toString());
+                                intent.putExtra("phone",child.child("phone").getValue().toString());
+                                startActivity(intent);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+                }
+            }
+        });
+
     }
 
     private void getInfo(){
         Bundle extras = getIntent().getExtras();
         if (extras != null){
-            phone.setText(extras.getString("phone"));
+            String phoneQR = extras.getString("phone");
+            String amountQR = extras.getString("amount");
+            String typeQR = extras.getString("type");
+
+            phone.setText(phoneQR);
+            name.setText("");
+            if (phone.getText().toString().equals("")){
+                Toast.makeText(TransferActivity.this, "Vui lòng nhập số điện thoại!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                String getUser = phone.getText().toString();
+                ref.orderByChild("phone").equalTo(getUser).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.getChildrenCount() == 0) Toast.makeText(TransferActivity.this, "Không tìm thấy người dùng!", Toast.LENGTH_SHORT).show();
+                        else{
+                            for (DataSnapshot child: snapshot.getChildren()){
+                                name.setText(child.child("name").getValue().toString());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+
+            transferCoin.setText(amountQR);
+            coin.setText(typeQR);
+            getBalance(typeQR);
         }
+
+        String[] item = {"bitcoin","ethereum","lvcoin"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dropdown,item);
+        coin.setAdapter(adapter);
+
+        coin.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getItemAtPosition(i).toString();
+
+                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Map<String,String> coinOwn = new HashMap<>();
+                        for (DataSnapshot child: snapshot.getChildren()){
+                            coinOwn = (HashMap) child.child("own").getValue();
+                        }
+                        balance.setText(String.valueOf(coinOwn.get(item)));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    private void getBalance(String typeQR) {
+        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Map<String,String> coinOwn = new HashMap<>();
+                for (DataSnapshot child: snapshot.getChildren()){
+                    coinOwn = (HashMap) child.child("own").getValue();
+                }
+                balance.setText(String.valueOf(coinOwn.get(typeQR)));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

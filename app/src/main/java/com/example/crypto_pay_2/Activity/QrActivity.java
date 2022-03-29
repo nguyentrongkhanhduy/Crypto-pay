@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +31,12 @@ public class QrActivity extends AppCompatActivity {
     ImageButton back;
     TextView phone;
     ImageView qrCode;
-    Button generate;
+
+    private ProgressBar loadingPB;
+
 
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
     String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +58,9 @@ public class QrActivity extends AppCompatActivity {
         back = findViewById(R.id.back_icon);
         phone = findViewById(R.id.phone);
         qrCode = findViewById(R.id.qr_code);
-        generate = findViewById(R.id.generate_qr);
 
+        loadingPB = findViewById(R.id.idPBLoading);
+        loadingPB.setVisibility(View.VISIBLE);
     }
 
     private void creatUI(){
@@ -67,37 +70,20 @@ public class QrActivity extends AppCompatActivity {
                 QrActivity.super.onBackPressed();
             }
         });
-
-        generate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!phone.getText().toString().equals("")){
-                    MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-                    try{
-                        BitMatrix bitMatrix = multiFormatWriter.encode(phone.getText().toString(), BarcodeFormat.QR_CODE,500,500);
-                        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                        Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-                        qrCode.setImageBitmap(bitmap);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    Toast.makeText(QrActivity.this,"Hãy đợi trong giây lát!",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
     }
 
     private void getInfo(){
         ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String value = "";
                 for (DataSnapshot child : snapshot.getChildren()){
                     phone.setText(String.valueOf(child.child("phone").getValue()));
+                    value = String.valueOf(child.child("phone").getValue());
                     break;
                 }
+                generateQR(value);
+                loadingPB.setVisibility(View.GONE);
             }
 
             @Override
@@ -105,6 +91,20 @@ public class QrActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void generateQR(String value) {
+        if(!value.equals("")){
+            MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+            try{
+                BitMatrix bitMatrix = multiFormatWriter.encode(value, BarcodeFormat.QR_CODE,500,500);
+                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                qrCode.setImageBitmap(bitmap);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 
 }

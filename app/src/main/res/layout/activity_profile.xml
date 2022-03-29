@@ -498,7 +498,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="Mã nhận tiền của tôi"
+                        android:text="Mã giao dịch của tôi"
                         android:textAlignment="center"
                         android:textColor="@color/black" />
 

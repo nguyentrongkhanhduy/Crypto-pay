@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cryptopay2">
         <activity
+            android:name=".Activity.RecieveActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.NotificationActivity"
             android:exported="false" />
         <activity

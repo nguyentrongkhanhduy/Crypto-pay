@@ -118,9 +118,18 @@ public class ScanActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            String phone = result.getText().toString();
+                            String scanResult = result.getText().toString();
                             Intent intent = new Intent(ScanActivity.this, TransferActivity.class);
+//                            System.out.println(scanResult);
+                            int firstSpace = scanResult.indexOf(" ");
+                            int secondSpace = scanResult.indexOf(" ", firstSpace + 1 );
+                            String phone = scanResult.substring(0,firstSpace);
+                            String amount = scanResult.substring(firstSpace + 1, secondSpace);
+                            String typeCoin = scanResult.substring(secondSpace + 1);
+//                            System.out.println(phone + "---" + typeCoin + "---" + amount);
                             intent.putExtra("phone",phone);
+                            intent.putExtra("amount",amount);
+                            intent.putExtra("type",typeCoin);
                             startActivity(intent);
                         }
                     });

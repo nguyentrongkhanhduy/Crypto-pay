@@ -30,25 +30,13 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/layout_bg">
 
-        <Button
-            android:id="@+id/to_scan"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="#FF7800"
-            android:text="Quét mã"
-            android:textSize="17dp" />
-
         <LinearLayout
-            android:layout_below="@id/to_scan"
             android:id="@+id/address_frame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/img_border"
             android:orientation="vertical"
             android:padding="15dp">
@@ -98,6 +86,17 @@
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/to_scan"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#FF7800"
+                android:text="Quét mã"
+                android:textSize="17dp" />
+
         </LinearLayout>
 
 
@@ -108,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/address_frame"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:hint="Chọn loại Coin">
 
             <AutoCompleteTextView
@@ -143,7 +142,7 @@
             android:layout_below="@id/balance_frame"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/img_border"
             android:orientation="vertical"
             android:padding="15dp">
@@ -158,7 +157,7 @@
                     android:id="@+id/coin_to_transfer"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:hint="Số coin cần chuyển"
+                    android:hint="Số coin cần giao dịch"
                     android:inputType="numberDecimal" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -179,6 +178,18 @@
 
         </LinearLayout>
 
+
+        <Button
+            android:id="@+id/begin_recieve_button"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/input_frame"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#FF7800"
+            android:text="Sinh mã nhận coin"
+            android:textSize="17dp" />
 
         <Button
             android:id="@+id/begin_transfer_button"
