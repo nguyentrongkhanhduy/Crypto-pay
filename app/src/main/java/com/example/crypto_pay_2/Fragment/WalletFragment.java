@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -15,9 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.crypto_pay_2.Activity.ProfileActivity;
 import com.example.crypto_pay_2.Activity.Login;
+import com.example.crypto_pay_2.Activity.ProfileActivity;
 import com.example.crypto_pay_2.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +29,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,6 +87,9 @@ public class WalletFragment extends Fragment {
     TextView phone;
     ImageView avatar;
     RelativeLayout general;
+    AutoCompleteTextView autoCplt;
+    TextInputEditText balance;
+
 
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -108,6 +118,8 @@ public class WalletFragment extends Fragment {
         avatar = (ImageView) view.findViewById(R.id.avatar);
         toProfile = (ImageButton) view.findViewById(R.id.to_profile);
         general = (RelativeLayout) view.findViewById(R.id.general_info);
+        autoCplt = view.findViewById(R.id.coin_dropdown);
+        balance = (TextInputEditText) view.findViewById(R.id.coin_balance);
     }
 
     void initUI(){
@@ -140,6 +152,34 @@ public class WalletFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        String[] item = {"bitcoin","ethereum","lvcoin"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.dropdown,item);
+        autoCplt.setAdapter(adapter);
+
+        autoCplt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String item = adapterView.getItemAtPosition(i).toString();
+
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Map<String,String> coinOwn = new HashMap<>();
+                        for (DataSnapshot child: snapshot.getChildren()){
+                            coinOwn = (HashMap) child.child("own").getValue();
+                        }
+                        balance.setText(String.valueOf(coinOwn.get(item)));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 

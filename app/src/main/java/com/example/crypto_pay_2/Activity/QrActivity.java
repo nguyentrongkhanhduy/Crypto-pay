@@ -1,8 +1,5 @@
 package com.example.crypto_pay_2.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +9,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.crypto_pay_2.R;
 import com.google.firebase.auth.FirebaseAuth;

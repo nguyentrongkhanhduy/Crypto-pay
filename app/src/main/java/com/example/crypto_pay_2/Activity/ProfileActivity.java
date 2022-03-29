@@ -43,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
     LinearLayout homeFrame;
     LinearLayout addressFrame;
     LinearLayout mailFrame;
+    LinearLayout qrFrame;
 
     TextView location;
     TextView birth;
@@ -58,28 +59,6 @@ public class ProfileActivity extends AppCompatActivity {
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     EditAvatarActivity editAvatarActivity = new EditAvatarActivity();
-
-//    public static final int MY_REQUEST_CODE = 10;
-//    private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == RESULT_OK){
-//                        Intent intent = result.getData();
-//                        if (intent == null){
-//                            return;
-//                        }
-//                        Uri uri = intent.getData();
-//
-//                        try {
-//                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-//                            editAvatarActivity.setBitmapImageView(bitmap);
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
         homeFrame = findViewById(R.id.home_frame);
         addressFrame = findViewById(R.id.address_frame);
         mailFrame = findViewById(R.id.mail_frame);
+        qrFrame = findViewById(R.id.money_code_frame);
 
         location = findViewById(R.id.city);
         birth = findViewById(R.id.birth_day);
@@ -235,26 +215,15 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        qrFrame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this,QrActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if (requestCode == MY_REQUEST_CODE){
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                openGallery();
-//            }
-//            else{
-//                Toast.makeText(this,"Vui lòng cấp quyền truy cập thư viện ảnh",Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
-//
-//    public void openGallery(){
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        mActivityResultLauncher.launch(Intent.createChooser(intent, "Chọn ảnh đại diện"));
-//    }
 
 }

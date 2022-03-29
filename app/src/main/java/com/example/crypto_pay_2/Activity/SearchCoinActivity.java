@@ -1,9 +1,5 @@
 package com.example.crypto_pay_2.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,14 +10,18 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.crypto_pay_2.Model.CurrencyModel;
 import com.example.crypto_pay_2.Adapter.CurrencyRVAdapter;
+import com.example.crypto_pay_2.Model.CurrencyModel;
 import com.example.crypto_pay_2.R;
 
 import org.json.JSONArray;
@@ -49,7 +49,6 @@ public class SearchCoinActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_search_coin);
 
-//        ac93e351-a61a-4402-8d7a-2aae52bf8189
         initUI();
 
         createUI();
@@ -60,6 +59,7 @@ public class SearchCoinActivity extends AppCompatActivity {
         back = findViewById(R.id.back_icon);
         searchEdt = findViewById(R.id.idEdtCurrency);
         loadingPB = findViewById(R.id.idPBLoading);
+        loadingPB.setVisibility(View.VISIBLE);
         currencyRV = findViewById(R.id.idRVcurrency);
         currencyModalArrayList = new ArrayList<>();
         currencyRVAdapter = new CurrencyRVAdapter(currencyModalArrayList, this);

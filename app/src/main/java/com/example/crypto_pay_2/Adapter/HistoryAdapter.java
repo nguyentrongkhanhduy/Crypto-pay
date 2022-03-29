@@ -32,18 +32,21 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
         History history = mListHistory.get(position);
         if(history == null) {
-            System.out.println("rong");
             return;
         }
-        System.out.println("khong rong");
         holder.name.setText(history.getName());
         holder.amount.setText(history.getAmount());
+        holder.date.setText(history.getDate());
+        holder.time.setText(history.getTime());
+        holder.from.setText("Từ: " + history.getFrom());
+        holder.to.setText("Đến: " + history.getTo());
+        holder.message.setText("Lời nhắn: " + history.getMessage());
     }
 
     @Override
     public int getItemCount() {
         if(mListHistory != null){
-            mListHistory.size();
+            return mListHistory.size();
         }
         return 0;
     }
@@ -52,12 +55,24 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
 
         private TextView name;
         private TextView amount;
+        private TextView date;
+        private TextView time;
+        private TextView from;
+        private TextView to;
+        private TextView message;
+
 
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.transaction_name);
             amount = itemView.findViewById(R.id.transaction_amount);
+            date = itemView.findViewById(R.id.transaction_date);
+            time = itemView.findViewById(R.id.transaction_time);
+            from = itemView.findViewById(R.id.transaction_from);
+            to = itemView.findViewById(R.id.transaction_to);
+            message = itemView.findViewById(R.id.message);
+
         }
     }
 }

@@ -9,7 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,13 +20,14 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.crypto_pay_2.Activity.ConvertActivity;
 import com.example.crypto_pay_2.Activity.DepositActivity;
+import com.example.crypto_pay_2.Activity.NotificationActivity;
 import com.example.crypto_pay_2.Activity.ProfileActivity;
+import com.example.crypto_pay_2.Activity.QrActivity;
 import com.example.crypto_pay_2.Activity.ScanActivity;
 import com.example.crypto_pay_2.Activity.SearchCoinActivity;
-import com.example.crypto_pay_2.Activity.QrActivity;
-import com.example.crypto_pay_2.R;
 import com.example.crypto_pay_2.Activity.TransferActivity;
 import com.example.crypto_pay_2.Activity.WithdrawActivity;
+import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,6 +87,7 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
     ImageView profile;
@@ -96,6 +101,10 @@ public class HomeFragment extends Fragment {
     ImageView graph;
     ImageView exchange;
     ImageView buy;
+    ImageButton notification;
+    TextView numberNotification;
+
+    private ProgressBar loadingPB;
 
 
     @Override
@@ -126,23 +135,35 @@ public class HomeFragment extends Fragment {
         graph = (ImageView) view.findViewById(R.id.graph_button);
         exchange = (ImageView) view.findViewById(R.id.exchange_button);
         buy = (ImageView) view.findViewById(R.id.buy_button);
+        notification = (ImageButton) view.findViewById(R.id.notification);
+        numberNotification = (TextView) view.findViewById(R.id.number_noti);
+        loadingPB = view.findViewById(R.id.idPBLoading);
+        loadingPB.setVisibility(View.VISIBLE);
     }
 
     private void getInfo(){
         Uri photoUrl = currentUser.getPhotoUrl();
         Glide.with(getActivity()).load(photoUrl).error(R.drawable.avatardefault).into(profile);
-    }
 
-    private void iniUI(){
-        profile.setOnClickListener(new View.OnClickListener() {
+        ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                ProfileActivity profile = new ProfileActivity();
-                Intent intent = new Intent(getActivity(),profile.getClass());
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long count = 0;
+                for (DataSnapshot child: snapshot.getChildren()){
+                    if (child.child("notification").getChildrenCount() != 0) count = child.child("notification").getChildrenCount();
+                }
+                if (count > 0){
+                    numberNotification.setVisibility(View.VISIBLE);
+                    numberNotification.setText(String.valueOf(count));
+                }
+                loadingPB.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-
 
         String[] item = {"bitcoin","ethereum","lvcoin"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.dropdown,item);
@@ -153,7 +174,6 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
                 ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -169,6 +189,18 @@ public class HomeFragment extends Fragment {
 
                     }
                 });
+            }
+        });
+
+    }
+
+    private void iniUI(){
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProfileActivity profile = new ProfileActivity();
+                Intent intent = new Intent(getActivity(),profile.getClass());
+                startActivity(intent);
             }
         });
 
@@ -232,6 +264,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), NotificationActivity.class);
+                startActivity(intent);
             }
         });
     }
