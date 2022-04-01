@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="coin">#FFE300</color>
+    <color name="yellow">#FEE300</color>
 </resources>

@@ -24,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,7 @@ public class NotificationActivity extends AppCompatActivity {
                                     mListNoti.add(history);
                                 }
                                 notificationAdapter.notifyDataSetChanged();
+                                Collections.sort(mListNoti,History.sortDate);
                                 loadingPB.setVisibility(View.GONE);
                             }
 

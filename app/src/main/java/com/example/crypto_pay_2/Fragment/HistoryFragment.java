@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -129,7 +130,7 @@ public class HistoryFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Map<String,String> trade = new HashMap<>();
                 for(DataSnapshot child:snapshot.getChildren()){
-                    if(child.child("notification").getChildrenCount() != 0) trade = (HashMap) child.child("history").getValue();
+                    if(child.child("history").getChildrenCount() != 0) trade = (HashMap) child.child("history").getValue();
                     else break;
                 }
                 if (!trade.isEmpty()){
@@ -148,6 +149,7 @@ public class HistoryFragment extends Fragment {
                                             String.valueOf(child.child("id").getValue()),
                                             String.valueOf(child.child("message").getValue()));
                                     mListHistory.add(history);
+                                    Collections.sort(mListHistory,History.sortDate);
                                 }
                                 historyAdapter.notifyDataSetChanged();
                                 loadingPB.setVisibility(View.GONE);

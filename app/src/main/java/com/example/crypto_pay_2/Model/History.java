@@ -1,5 +1,7 @@
 package com.example.crypto_pay_2.Model;
 
+import java.util.Comparator;
+
 public class History {
     private String name;
     private String amount;
@@ -86,4 +88,14 @@ public class History {
     public void setId(String id) {
         this.id = id;
     }
+
+    public static Comparator<History> sortDate = new Comparator<History>() {
+        @Override
+        public int compare(History history1, History history2) {
+            if (history2.getDate().compareTo(history1.getDate()) == 0){
+                return history2.getTime().compareTo(history1.getTime());
+            }
+            return history2.getDate().compareTo(history1.getDate());
+        }
+    };
 }

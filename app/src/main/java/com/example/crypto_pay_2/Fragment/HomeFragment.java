@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.crypto_pay_2.Activity.BuyCardActivity;
 import com.example.crypto_pay_2.Activity.ConvertActivity;
 import com.example.crypto_pay_2.Activity.DepositActivity;
 import com.example.crypto_pay_2.Activity.NotificationActivity;
@@ -263,7 +264,8 @@ public class HomeFragment extends Fragment {
         buy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), BuyCardActivity.class);
+                startActivity(intent);
             }
         });
 
