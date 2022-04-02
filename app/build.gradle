@@ -22,13 +22,14 @@ android {
         }
 
         python {
-            buildPython "D:/Python/python/python.exe"
+            buildPython "D:/Python/python38/python.exe"
         }
 
         python{
             pip{
-                install "sockets"
+                install "numpy"
                 install "jsons"
+                install "sockets"
             }
         }
 

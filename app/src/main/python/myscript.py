@@ -22,7 +22,9 @@ def createUser(id, entropy):
 
     try:
         Clientsocket.connect((host, port))
+        return 3
     except socket.error as e:
+        return 2
         pass
 
     data = transmitData('createaddress', [entropy, id])
@@ -30,3 +32,10 @@ def createUser(id, entropy):
 
 
     return 1
+
+
+# import numpy as np
+# def foo():
+#     # rs = np.zeros(5)
+#     rs = np.zeros(5)
+#     return "hello" + str(rs)

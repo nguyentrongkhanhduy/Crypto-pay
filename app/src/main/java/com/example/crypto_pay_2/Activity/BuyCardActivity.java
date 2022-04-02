@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class BuyCardActivity extends AppCompatActivity {
 
-//    TextView test;
+    TextView test;
 
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
     String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -72,16 +72,29 @@ public class BuyCardActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_buy_card);
 
+
+
         initUI();
 
         creatUI();
 
         getInfo();
 
+        if(!Python.isStarted()){
+            Python.start(new AndroidPlatform(this));
+        }
+
+        Python py = Python.getInstance();
+        PyObject pyobj = py.getModule("myscript");
+
+        PyObject obj = pyobj.callAttr("createUser", 5, "5B7971EC8CDF8E950236C5A7D7332FD1");
+
+        test.setText(obj.toString());
+
     }
 
     private void initUI() {
-//        test = findViewById(R.id.test);
+        test = findViewById(R.id.test);
 
         back = findViewById(R.id.back_icon);
         mobifone = findViewById(R.id.mobi);
@@ -337,13 +350,3 @@ public class BuyCardActivity extends AppCompatActivity {
 }
 
 
-//        if(!Python.isStarted()){
-//            Python.start(new AndroidPlatform(this));
-//        }
-//
-//        Python py = Python.getInstance();
-//        PyObject pyobj = py.getModule("myscript");
-//
-//        PyObject obj = pyobj.callAttr("createUser", 5 , "6B4164A7642F1574978AAB00FC66BEF1");
-//
-//        test.setText(obj.toString());
