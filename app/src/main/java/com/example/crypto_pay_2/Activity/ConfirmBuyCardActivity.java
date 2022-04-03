@@ -3,6 +3,7 @@ package com.example.crypto_pay_2.Activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -105,6 +108,29 @@ public class ConfirmBuyCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ConfirmBuyCardActivity.super.onBackPressed();
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SimpleDateFormat formatToDisplayDate = new SimpleDateFormat("dd/MM/yyyy");
+                SimpleDateFormat formatToDisplayTime = new SimpleDateFormat("HH:mm:ss");
+                SimpleDateFormat formatToAdd = new SimpleDateFormat("ddMMyyyyHHMMss");
+                Calendar c = Calendar.getInstance();
+                String date = formatToDisplayDate.format(c.getTime());
+                String time = formatToDisplayTime.format(c.getTime());
+                String historyId = formatToAdd.format(c.getTime());
+
+                Intent intent = new Intent(ConfirmBuyCardActivity.this, BuyResultActivity.class);
+                intent.putExtra("typeCard", typeCard.getText().toString());
+                intent.putExtra("single", single.getText().toString());
+                intent.putExtra("amount", amount.getText().toString());
+                intent.putExtra("sum", sum.getText().toString());
+                intent.putExtra("dateTime", time + " - " + date);
+                intent.putExtra("typeCoin", autoCplt.getText().toString());
+                intent.putExtra("transID", historyId);
+                startActivity(intent);
             }
         });
     }

@@ -30,7 +30,6 @@ def createUser(id, entropy):
     data = transmitData('createaddress', [entropy, id])
     Clientsocket.sendall(data.encode())
 
-
     return 1
 
 
