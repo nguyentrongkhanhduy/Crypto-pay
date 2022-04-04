@@ -2,8 +2,10 @@ package com.example.crypto_pay_2.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Random;
 
 public class BuyResultActivity extends AppCompatActivity {
 
@@ -64,6 +68,12 @@ public class BuyResultActivity extends AppCompatActivity {
 
     Button toListCard;
     Button toBuyMore;
+
+    CardView cardOne;
+    CardView cardTwo;
+    CardView cardThree;
+    CardView cardFour;
+    CardView cardFive;
 
 
     @Override
@@ -118,13 +128,19 @@ public class BuyResultActivity extends AppCompatActivity {
         card4Code = findViewById(R.id.card_4_code);
         fourthSeri= findViewById(R.id.fourth_seri);
 
-        typeCard5 = findViewById(R.id.typeCard1);
+        typeCard5 = findViewById(R.id.typeCard5);
         fifthSingle = findViewById(R.id.fifth_single);
-        card5Code = findViewById(R.id.card_1_code);
+        card5Code = findViewById(R.id.card_5_code);
         fifthtSeri= findViewById(R.id.fifth_seri);
 
         toListCard = findViewById(R.id.to_list_card);
         toBuyMore = findViewById(R.id.to_buy_more);
+
+        cardOne = findViewById(R.id.card1);
+        cardTwo = findViewById(R.id.card2);
+        cardThree = findViewById(R.id.card3);
+        cardFour = findViewById(R.id.card4);
+        cardFive = findViewById(R.id.card5);
     }
 
     private void createUI(){
@@ -174,5 +190,61 @@ public class BuyResultActivity extends AppCompatActivity {
         typeCard.setText(typeOfCardService);
         single.setText(singleOfCard);
         amount.setText(amountOfCard);
+
+        typeCard1.setText(typeOfCardService);
+        typeCard2.setText(typeOfCardService);
+        typeCard3.setText(typeOfCardService);
+        typeCard4.setText(typeOfCardService);
+        typeCard5.setText(typeOfCardService);
+
+        firstSingle.setText(singleOfCard);
+        secondSingle.setText(singleOfCard);
+        thirdSingle.setText(singleOfCard);
+        fourthSingle.setText(singleOfCard);
+        fifthSingle.setText(singleOfCard);
+
+        card1Code.setText(generateRandom(12));
+        card2Code.setText(generateRandom(12));
+        card3Code.setText(generateRandom(12));
+        card4Code.setText(generateRandom(12));
+        card5Code.setText(generateRandom(12));
+
+        firstSeri.setText(generateRandom(15));
+        secondSeri.setText(generateRandom(15));
+        thirdSeri.setText(generateRandom(15));
+        fourthSeri.setText(generateRandom(15));
+        fifthtSeri.setText(generateRandom(15));
+
+        if(amountOfCard.equals("1")){
+            cardTwo.setVisibility(View.GONE);
+            cardThree.setVisibility(View.GONE);
+            cardFour.setVisibility(View.GONE);
+            cardFive.setVisibility(View.GONE);
+        }
+
+        if(amountOfCard.equals("2")){
+            cardThree.setVisibility(View.GONE);
+            cardFour.setVisibility(View.GONE);
+            cardFive.setVisibility(View.GONE);
+        }
+
+        if(amountOfCard.equals("3")){
+            cardFour.setVisibility(View.GONE);
+            cardFive.setVisibility(View.GONE);
+        }
+
+        if(amountOfCard.equals("4")){
+            cardFive.setVisibility(View.GONE);
+        }
+    }
+
+    public static String generateRandom(int length) {
+        Random random = new Random();
+        char[] digits = new char[length];
+        digits[0] = (char) (random.nextInt(9) + '1');
+        for (int i = 1; i < length; i++) {
+            digits[i] = (char) (random.nextInt(10) + '0');
+        }
+        return String.valueOf(digits);
     }
 }

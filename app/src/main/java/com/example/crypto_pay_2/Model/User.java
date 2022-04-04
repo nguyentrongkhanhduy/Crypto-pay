@@ -15,12 +15,13 @@ public class User {
     private String education;
     private String occupation;
     private String hometown;
+    private String entropy;
 
     public User(){
 
     }
 
-    public User(String name, String phone, String mail, String address, String city, String gender, String birth, String status, String education, String occupation, String hometown) {
+    public User(String name, String phone, String mail, String address, String city, String gender, String birth, String status, String education, String occupation, String hometown, String entropy) {
         this.name = name;
         this.phone = phone;
         this.mail = mail;
@@ -32,6 +33,15 @@ public class User {
         this.education = education;
         this.occupation = occupation;
         this.hometown = hometown;
+        this.entropy = entropy;
+    }
+
+    public String getEntropy() {
+        return entropy;
+    }
+
+    public void setEntropy(String entropy) {
+        this.entropy = entropy;
     }
 
     public String getName() {

@@ -12,6 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.chaquo.python.PyObject;
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.example.crypto_pay_2.Model.Coin;
 import com.example.crypto_pay_2.Model.User;
 import com.example.crypto_pay_2.R;
@@ -116,7 +119,20 @@ public class RegisterPage extends AppCompatActivity {
     private void addNewMember(int count, String name, String email, String phone){
         String nextChild = String.valueOf(count+1);
         String unknown = "unknown";
-        User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown);
+        String entropy = "";
+
+        if(!Python.isStarted()){
+            Python.start(new AndroidPlatform(this));
+        }
+
+        Python py = Python.getInstance();
+        PyObject pyobj = py.getModule("entropy");
+
+        PyObject obj = pyobj.callAttr("generateEntropy", 128);
+
+        entropy = obj.toString();
+
+        User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,entropy);
         user.child(nextChild).setValue(registered);
         Coin newCoin = new Coin(0,0,0);
         user.child(nextChild).child("own").setValue(newCoin);

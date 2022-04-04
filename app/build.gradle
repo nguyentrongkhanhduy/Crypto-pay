@@ -30,6 +30,7 @@ android {
                 install "numpy"
                 install "jsons"
                 install "sockets"
+                install "hdwallet"
             }
         }
 

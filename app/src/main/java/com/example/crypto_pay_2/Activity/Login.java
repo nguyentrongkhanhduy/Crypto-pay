@@ -69,6 +69,7 @@ public class Login extends AppCompatActivity {
                 Intent intent = new Intent(Login.this,MainPage.class);
                 intent.putExtra("email",email);
                 startActivity(intent);
+                finishAffinity();
             }
         });
     }
