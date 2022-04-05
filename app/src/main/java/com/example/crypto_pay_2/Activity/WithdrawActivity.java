@@ -25,6 +25,15 @@ import java.util.Map;
 
 public class WithdrawActivity extends AppCompatActivity {
 
+    String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+    TextInputEditText balance;
+    AutoCompleteTextView autoCplt;
+
+    ImageButton back;
+    TextInputEditText amount;
+    TextInputEditText address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,22 +42,34 @@ public class WithdrawActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_withdraw);
 
-        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        initUI();
 
-        ImageButton back = (ImageButton) findViewById(R.id.back_icon);
+        createUI();
+
+        getInfo();
+    }
+
+    private void initUI() {
+        balance = (TextInputEditText) findViewById(R.id.coin_balance);
+        autoCplt = findViewById(R.id.coin_dropdown);
+        back = (ImageButton) findViewById(R.id.back_icon);
+        amount = findViewById(R.id.coin_to_withdraw);
+        address = findViewById(R.id.coin_address);
+    }
+
+    private void createUI() {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 WithdrawActivity.super.onBackPressed();
             }
         });
+    }
 
+    private void getInfo() {
         String[] item = {"bitcoin","ethereum","lvcoin"};
-        AutoCompleteTextView autoCplt = findViewById(R.id.coin_dropdown);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(WithdrawActivity.this, R.layout.dropdown,item);
         autoCplt.setAdapter(adapter);
-
-        TextInputEditText balance = (TextInputEditText) findViewById(R.id.coin_balance);
 
         autoCplt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,4 +95,6 @@ public class WithdrawActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

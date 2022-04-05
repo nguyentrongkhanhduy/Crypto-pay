@@ -174,7 +174,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initUI(){
-
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -225,5 +224,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        startActivity(new Intent(ProfileActivity.this, MainPage.class));
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.crypto_pay_2.Adapter;
 
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
 
     private List<History> mListNoti;
+    private DeleteStuff deleteStuff;
 
-    public NotificationAdapter(List<History> mListNoti) {
+    public interface DeleteStuff {
+        void deleteNotiOnClick(History history);
+    }
+
+    public NotificationAdapter(List<History> mListNoti, DeleteStuff deleteStuff) {
         this.mListNoti = mListNoti;
+        this.deleteStuff = deleteStuff;
     }
 
     @NonNull
@@ -55,28 +62,29 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String userId = "";
-                        for (DataSnapshot child : snapshot.getChildren())
-                        {
-                            userId = child.getKey().toString();
-                            break;
-                        }
-                        ref.child(userId).child("notification").child(history.getId()).removeValue(new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+//                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                        String userId = "";
+//                        for (DataSnapshot child : snapshot.getChildren())
+//                        {
+//                            userId = child.getKey().toString();
+//                            break;
+//                        }
+//                        ref.child(userId).child("notification").child(history.getId()).removeValue(new DatabaseReference.CompletionListener() {
+//                            @Override
+//                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+//
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                    }
+//                });
+                deleteStuff.deleteNotiOnClick(history);
             }
         });
     }

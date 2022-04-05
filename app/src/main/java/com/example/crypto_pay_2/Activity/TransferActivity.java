@@ -211,10 +211,10 @@ public class TransferActivity extends AppCompatActivity {
                         }
                     });
                     Toast.makeText(TransferActivity.this, "Giao dịch thành công!",Toast.LENGTH_SHORT).show();
-                    phone.setText("");
-                    name.setText("");
-                    transferCoin.setText("");
-                    message.setText("");
+                    finish();
+                    overridePendingTransition( 0, 0);
+                    startActivity(getIntent());
+                    overridePendingTransition( 0, 0);
                 }
             }
         });

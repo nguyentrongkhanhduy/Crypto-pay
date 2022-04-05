@@ -102,7 +102,6 @@
                     android:id="@+id/coin_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="text"
                     android:hint="Địa chỉ ví"/>
             </com.google.android.material.textfield.TextInputLayout>
 

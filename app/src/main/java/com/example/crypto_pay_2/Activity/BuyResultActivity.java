@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -144,6 +145,22 @@ public class BuyResultActivity extends AppCompatActivity {
     }
 
     private void createUI(){
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BuyResultActivity.this, MainPage.class);
+                startActivity(intent);
+                finishAffinity();
+            }
+        });
+
+        toBuyMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BuyResultActivity.this, BuyCardActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -246,5 +263,10 @@ public class BuyResultActivity extends AppCompatActivity {
             digits[i] = (char) (random.nextInt(10) + '0');
         }
         return String.valueOf(digits);
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

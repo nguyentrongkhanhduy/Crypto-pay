@@ -3,6 +3,7 @@ package com.example.crypto_pay_2.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -29,7 +30,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class RegisterPage extends AppCompatActivity {
-
+    private static final String TAG = "RegisterPage";
+    
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     DatabaseReference user = FirebaseDatabase.getInstance().getReference("user");
@@ -126,15 +128,46 @@ public class RegisterPage extends AppCompatActivity {
         }
 
         Python py = Python.getInstance();
-        PyObject pyobj = py.getModule("entropy");
 
+        PyObject pyobj = py.getModule("entropy");
         PyObject obj = pyobj.callAttr("generateEntropy", 128);
 
         entropy = obj.toString();
 
+        System.out.println(entropy);
+
+        ConnectServerThread connectServerThread = new ConnectServerThread(nextChild,entropy);
+        connectServerThread.start();
+
         User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,entropy);
         user.child(nextChild).setValue(registered);
-        Coin newCoin = new Coin(0,0,0);
+        Coin newCoin = new Coin(0,0,10000);
         user.child(nextChild).child("own").setValue(newCoin);
+    }
+
+    class ConnectServerThread extends Thread{
+
+        String nextChild;
+        String entropy;
+
+        ConnectServerThread(String nextChild, String entropy){
+
+            this.nextChild = nextChild;
+            this.entropy = entropy;
+        }
+
+        @Override
+        public void run() {
+            if(!Python.isStarted()){
+                Python.start(new AndroidPlatform(RegisterPage.this));
+            }
+
+            Python py = Python.getInstance();
+
+            PyObject blockchain = py.getModule("blockchain");
+            PyObject creatUser = blockchain.callAttr("createUser", nextChild, entropy);
+
+            System.out.println(creatUser.toString());
+        }
     }
 }

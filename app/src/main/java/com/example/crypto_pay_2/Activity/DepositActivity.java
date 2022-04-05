@@ -25,6 +25,16 @@ import java.util.Map;
 
 public class DepositActivity extends AppCompatActivity {
 
+    String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+
+    ImageButton back;
+
+    TextInputEditText balance;
+    AutoCompleteTextView autoCplt;
+
+    TextInputEditText amount;
+    TextInputEditText address;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,23 +43,37 @@ public class DepositActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_deposit);
 
-        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        initUI();
+
+        createUI();
+
+        getInfo();
 
 
-        ImageButton back = (ImageButton) findViewById(R.id.back_icon);
+    }
+
+    private void initUI() {
+        balance = (TextInputEditText) findViewById(R.id.coin_balance);
+        autoCplt = findViewById(R.id.coin_dropdown);
+        back = (ImageButton) findViewById(R.id.back_icon);
+        amount = findViewById(R.id.coin_to_deposit);
+        address = findViewById(R.id.coin_address);
+    }
+
+    private void createUI() {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DepositActivity.super.onBackPressed();
             }
         });
+    }
 
+    private void getInfo() {
         String[] item = {"bitcoin","ethereum","lvcoin"};
-        AutoCompleteTextView autoCplt = findViewById(R.id.coin_dropdown);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DepositActivity.this, R.layout.dropdown,item);
-        autoCplt.setAdapter(adapter);
 
-        TextInputEditText balance = (TextInputEditText) findViewById(R.id.coin_balance);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.dropdown,item);
+        autoCplt.setAdapter(adapter);
 
         autoCplt.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -74,7 +98,5 @@ public class DepositActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 }

@@ -104,7 +104,7 @@ public class EditAvatarActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditAvatarActivity.super.onBackPressed();
+                startActivity(new Intent(EditAvatarActivity.this, ProfileActivity.class));
             }
         });
 
@@ -182,4 +182,11 @@ public class EditAvatarActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
+        startActivity(new Intent(EditAvatarActivity.this, ProfileActivity.class));
+    }
+
 }

@@ -1,5 +1,8 @@
 package com.example.crypto_pay_2.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -8,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -70,7 +74,41 @@ public class NotificationActivity extends AppCompatActivity {
         rvNoti.setLayoutManager(linearLayoutManager);
 
         mListNoti = new ArrayList<>();
-        notificationAdapter = new NotificationAdapter(mListNoti);
+        notificationAdapter = new NotificationAdapter(mListNoti, new NotificationAdapter.DeleteStuff() {
+            @Override
+            public void deleteNotiOnClick(History history) {
+                new AlertDialog.Builder(NotificationActivity.this)
+                        .setTitle("Lưu ý!!!").setMessage("Bạn có chắc chắn muốn xóa thông báo này không?")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String userId = "";
+                                        for (DataSnapshot child : snapshot.getChildren())
+                                        {
+                                            userId = child.getKey().toString();
+                                            break;
+                                        }
+                                        ref.child(userId).child("notification").child(history.getId()).removeValue(new DatabaseReference.CompletionListener() {
+                                            @Override
+                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton("Cancel", null).show();
+            }
+        });
 
         rvNoti.setAdapter(notificationAdapter);
     }
@@ -79,21 +117,29 @@ public class NotificationActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NotificationActivity.super.onBackPressed();
+                startActivity(new Intent(NotificationActivity.this,MainPage.class));
             }
         });
     }
 
     private void getInfo(){
-        ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Map<String,String> trade = new HashMap<>();
                 for(DataSnapshot child:snapshot.getChildren()){
                     if(child.child("notification").getChildrenCount() != 0) trade = (HashMap) child.child("notification").getValue();
-                    else break;
+                    else{
+                        mListNoti.clear();
+                        notificationAdapter.notifyDataSetChanged();
+                        break;
+                    }
                 }
                 if (!trade.isEmpty()){
+                    if(mListNoti != null){
+                        mListNoti.clear();
+                    }
+
                     Object[] a = trade.values().toArray();
                     for (int i = 0; i < a.length; i++){
                         ref2.orderByChild("id").equalTo(String.valueOf(a[i])).addValueEventListener(new ValueEventListener() {

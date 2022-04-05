@@ -92,10 +92,25 @@ public class History {
     public static Comparator<History> sortDate = new Comparator<History>() {
         @Override
         public int compare(History history1, History history2) {
-            if (history2.getDate().compareTo(history1.getDate()) == 0){
-                return history2.getTime().compareTo(history1.getTime());
+            String dt1 = history1.getDate();
+            String date1 = dt1.substring(0,2);
+            String month1 = dt1.substring(3,5);
+            String year1 = dt1.substring(6);
+            String dt2 = history2.getDate();
+            String date2 = dt2.substring(0,2);
+            String month2 = dt2.substring(3,5);
+            String year2 = dt2.substring(6);
+
+            if(year2.compareTo(year1) != 0){
+                return year2.compareTo(year1);
             }
-            return history2.getDate().compareTo(history1.getDate());
+            else if(month2.compareTo(month1) != 0){
+                return month2.compareTo(month1);
+            }
+            else if(date2.compareTo(date1) != 0){
+                return date2.compareTo(date1);
+            }
+            else return history2.getTime().compareTo(history1.getTime());
         }
     };
 }

@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.crypto_pay_2.Model.History;
 import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +30,7 @@ import java.util.Map;
 public class ConfirmBuyCardActivity extends AppCompatActivity {
 
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("history");
     String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
     ImageButton back;
@@ -121,6 +123,49 @@ public class ConfirmBuyCardActivity extends AppCompatActivity {
                 String date = formatToDisplayDate.format(c.getTime());
                 String time = formatToDisplayTime.format(c.getTime());
                 String historyId = formatToAdd.format(c.getTime());
+
+                Bundle extras = getIntent().getExtras();
+                String total = extras.getString("sum");
+                String typeOfCard = typeCard.getText().toString();
+                String singleOfCard = single.getText().toString();
+                String amountOfCard = amount.getText().toString();
+                String totalPaid = sum.getText().toString();
+                String typeCoinPaid = autoCplt.getText().toString();
+
+                Double payAmount = Double.parseDouble(total);
+                Double currentAmount = Double.parseDouble(balance.getText().toString());
+                Double result = currentAmount - payAmount;
+                String updateBalance = String.valueOf(result);
+
+                ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String userId = "";
+                        String senderName = "";
+                        for (DataSnapshot child : snapshot.getChildren())
+                        {
+                            userId = child.getKey().toString();
+                            senderName = child.child("name").getValue().toString();
+                        }
+                        ref.child(userId).child("own").child(typeCoinPaid).setValue(updateBalance);
+                        History history = new History("Mua mã thẻ điện thoại",
+                                totalPaid,
+                                date,
+                                time,
+                                senderName,
+                                "Dịch vụ mua mã thẻ",
+                                historyId,
+                                amountOfCard + " " + typeOfCard + " " + singleOfCard);
+                        ref.child(userId).child("history").child(historyId).setValue(historyId);
+                        ref2.child(historyId).setValue(history);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
 
                 Intent intent = new Intent(ConfirmBuyCardActivity.this, BuyResultActivity.class);
                 intent.putExtra("typeCard", typeCard.getText().toString());
