@@ -24,9 +24,6 @@ import java.util.List;
 
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationHolder>{
 
-    String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
-
     private List<History> mListNoti;
     private DeleteStuff deleteStuff;
 
@@ -62,28 +59,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        String userId = "";
-//                        for (DataSnapshot child : snapshot.getChildren())
-//                        {
-//                            userId = child.getKey().toString();
-//                            break;
-//                        }
-//                        ref.child(userId).child("notification").child(history.getId()).removeValue(new DatabaseReference.CompletionListener() {
-//                            @Override
-//                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-//
-//                            }
-//                        });
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
-//                });
                 deleteStuff.deleteNotiOnClick(history);
             }
         });

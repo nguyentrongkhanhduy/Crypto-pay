@@ -19,7 +19,7 @@
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/drawable/layout_bg.xml" value="0.1085" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/drawable/random_bd.xml" value="0.1795" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_buy_card.xml" value="0.25" />
-        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_buy_result.xml" value="0.22950819672131148" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_buy_result.xml" value="0.33" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_confirm_buy_card.xml" value="0.22" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_convert.xml" value="0.33" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_deposit.xml" value="0.2901155327342747" />
@@ -30,6 +30,7 @@
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_main_page.xml" value="0.1" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_notification.xml" value="0.1718683197947841" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_phone_cards_list.xml" value="0.33" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_profile.xml" value="0.2" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_qr.xml" value="0.22" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_qr_and_scan.xml" value="0.1" />
@@ -50,7 +51,8 @@
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/fragment_wallet.xml" value="0.25" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/frame_border.xml" value="0.17272338606241983" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/item_history.xml" value="0.1" />
-        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/noti_item.xml" value="0.25" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/noti_item.xml" value="0.16" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/phone_card.xml" value="1.0404040404040404" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/start_page.xml" value="0.22447916666666667" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/menu/code_and_scan.xml" value="0.1718683197947841" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/menu/menu.xml" value="0.22447916666666667" />

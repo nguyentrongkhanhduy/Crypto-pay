@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/idCardItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:id="@+id/item_frame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/titleTypeCard1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã thẻ"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/typeCard1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/titleTypeCard1"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/isUsed"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:text="Đã sử dụng"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/first_single_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mệnh giá"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/first_single"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/first_single_title"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/date_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textSize="15sp"/>
+
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/card_1_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ECECEC"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp">
+
+            <TextView
+                android:id="@+id/first_single_seri_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Số seri"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/first_seri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_toEndOf="@id/first_single_seri_title"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

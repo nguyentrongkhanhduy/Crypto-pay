@@ -43,6 +43,16 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/to_list_card"
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#FF7800"
+                android:text="Thẻ đã mua"
+                android:textSize="17dp" />
+
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

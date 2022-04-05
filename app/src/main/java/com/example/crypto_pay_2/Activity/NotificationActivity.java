@@ -82,29 +82,7 @@ public class NotificationActivity extends AppCompatActivity {
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        String userId = "";
-                                        for (DataSnapshot child : snapshot.getChildren())
-                                        {
-                                            userId = child.getKey().toString();
-                                            break;
-                                        }
-                                        ref.child(userId).child("notification").child(history.getId()).removeValue(new DatabaseReference.CompletionListener() {
-                                            @Override
-                                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-
+                                deleteNotification(history);
                             }
                         }).setNegativeButton("Cancel", null).show();
             }
@@ -181,4 +159,28 @@ public class NotificationActivity extends AppCompatActivity {
         });
     }
 
+    private void deleteNotification(History history){
+        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String userId = "";
+                for (DataSnapshot child : snapshot.getChildren())
+                {
+                    userId = child.getKey().toString();
+                    break;
+                }
+                ref.child(userId).child("notification").child(history.getId()).removeValue(new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.crypto_pay_2.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -12,8 +13,10 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.crypto_pay_2.Model.PhoneCard;
 import com.example.crypto_pay_2.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -162,6 +165,13 @@ public class BuyResultActivity extends AppCompatActivity {
             }
         });
 
+        toListCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BuyResultActivity.this, PhoneCardsListActivity.class));
+            }
+        });
+
     }
 
     private void getInfo(){
@@ -220,17 +230,29 @@ public class BuyResultActivity extends AppCompatActivity {
         fourthSingle.setText(singleOfCard);
         fifthSingle.setText(singleOfCard);
 
-        card1Code.setText(generateRandom(12));
-        card2Code.setText(generateRandom(12));
-        card3Code.setText(generateRandom(12));
-        card4Code.setText(generateRandom(12));
-        card5Code.setText(generateRandom(12));
+        String code1 = generateRandom(12);
+        String code2 = generateRandom(12);
+        String code3 = generateRandom(12);
+        String code4 = generateRandom(12);
+        String code5 = generateRandom(12);
 
-        firstSeri.setText(generateRandom(15));
-        secondSeri.setText(generateRandom(15));
-        thirdSeri.setText(generateRandom(15));
-        fourthSeri.setText(generateRandom(15));
-        fifthtSeri.setText(generateRandom(15));
+        String seri1 = generateRandom(15);
+        String seri2 = generateRandom(15);
+        String seri3 = generateRandom(15);
+        String seri4 = generateRandom(15);
+        String seri5 = generateRandom(15);
+
+        card1Code.setText(code1);
+        card2Code.setText(code2);
+        card3Code.setText(code3);
+        card4Code.setText(code4);
+        card5Code.setText(code5);
+
+        firstSeri.setText(seri1);
+        secondSeri.setText(seri2);
+        thirdSeri.setText(seri3);
+        fourthSeri.setText(seri4);
+        fifthtSeri.setText(seri5);
 
         if(amountOfCard.equals("1")){
             cardTwo.setVisibility(View.GONE);
@@ -253,6 +275,55 @@ public class BuyResultActivity extends AppCompatActivity {
         if(amountOfCard.equals("4")){
             cardFive.setVisibility(View.GONE);
         }
+
+        PhoneCard lCardOne = new PhoneCard(code1,typeOfCardService,code1,seri1,dateTimeTrans,singleOfCard,"0");
+        PhoneCard lCardTwo = new PhoneCard(code2,typeOfCardService,code2,seri2,dateTimeTrans,singleOfCard,"0");
+        PhoneCard lCardThree = new PhoneCard(code3,typeOfCardService,code3,seri3,dateTimeTrans,singleOfCard,"0");
+        PhoneCard lCardFour = new PhoneCard(code4,typeOfCardService,code4,seri4,dateTimeTrans,singleOfCard,"0");
+        PhoneCard lCardFive = new PhoneCard(code5,typeOfCardService,code5,seri5,dateTimeTrans,singleOfCard,"0");
+
+        ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String userId = "";
+                String cardsAmount = extras.getString("amount");
+                for (DataSnapshot child : snapshot.getChildren()){
+                    userId = child.getKey();
+                    break;
+                }
+                if(cardsAmount.equals("1")){
+                    ref.child(userId).child("phonecard").child(code1).setValue(lCardOne);
+                }
+                else if(cardsAmount.equals("2")){
+                    ref.child(userId).child("phonecard").child(code1).setValue(lCardOne);
+                    ref.child(userId).child("phonecard").child(code2).setValue(lCardTwo);
+                }
+                else if(cardsAmount.equals("3")){
+                    ref.child(userId).child("phonecard").child(code1).setValue(lCardOne);
+                    ref.child(userId).child("phonecard").child(code2).setValue(lCardTwo);
+                    ref.child(userId).child("phonecard").child(code3).setValue(lCardThree);
+
+                }
+                else if(cardsAmount.equals("4")){
+                    ref.child(userId).child("phonecard").child(code1).setValue(lCardOne);
+                    ref.child(userId).child("phonecard").child(code2).setValue(lCardTwo);
+                    ref.child(userId).child("phonecard").child(code3).setValue(lCardThree);
+                    ref.child(userId).child("phonecard").child(code4).setValue(lCardFour);
+                }
+                else if(cardsAmount.equals("5")){
+                    ref.child(userId).child("phonecard").child(code1).setValue(lCardOne);
+                    ref.child(userId).child("phonecard").child(code2).setValue(lCardTwo);
+                    ref.child(userId).child("phonecard").child(code3).setValue(lCardThree);
+                    ref.child(userId).child("phonecard").child(code4).setValue(lCardFour);
+                    ref.child(userId).child("phonecard").child(code5).setValue(lCardFive);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public static String generateRandom(int length) {

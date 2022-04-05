@@ -57,6 +57,7 @@ public class BuyCardActivity extends AppCompatActivity {
     TextView sum;
 
     Button toContinue;
+    Button toListCard;
 
     AutoCompleteTextView autoCplt;
     TextInputEditText balance;
@@ -99,6 +100,7 @@ public class BuyCardActivity extends AppCompatActivity {
         amount = findViewById(R.id.amount);
         sum = findViewById(R.id.sum);
         toContinue = findViewById(R.id.to_continue);
+        toListCard = findViewById(R.id.to_list_card);
 
         balance = findViewById(R.id.coin_balance);
         autoCplt = findViewById(R.id.coin_dropdown);
@@ -247,6 +249,13 @@ public class BuyCardActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }
+            }
+        });
+
+        toListCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BuyCardActivity.this, PhoneCardsListActivity.class));
             }
         });
     }

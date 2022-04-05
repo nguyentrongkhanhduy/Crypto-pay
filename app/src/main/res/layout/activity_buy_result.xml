@@ -391,19 +391,19 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Mã thẻ"
+                                android:textColor="@color/black"
                                 android:textSize="17sp"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"/>
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/typeCard1"
-                                android:layout_toEndOf="@id/titleTypeCard1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="17sp"
                                 android:layout_marginStart="5dp"
-                                android:textStyle="bold"
-                                android:textColor="@color/black"/>
+                                android:layout_toEndOf="@id/titleTypeCard1"
+                                android:textColor="@color/black"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
 
                         </RelativeLayout>
 
@@ -420,10 +420,10 @@
 
                             <TextView
                                 android:id="@+id/first_single"
-                                android:layout_toEndOf="@id/first_single_title"
                                 android:layout_width="wrap_content"
-                                android:layout_marginStart="5dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_toEndOf="@id/first_single_title"
                                 android:textSize="15sp" />
 
                         </RelativeLayout>
@@ -437,11 +437,11 @@
                                 android:id="@+id/card_1_code"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:background="#ECECEC"
                                 android:textAlignment="center"
-                                android:textSize="17sp"
                                 android:textColor="@color/black"
-                                android:textStyle="bold"
-                                android:background="#ECECEC"/>
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
 
                         </androidx.cardview.widget.CardView>
 
@@ -459,10 +459,10 @@
 
                             <TextView
                                 android:id="@+id/first_seri"
-                                android:layout_toEndOf="@id/first_single_seri_title"
                                 android:layout_width="wrap_content"
-                                android:layout_marginStart="5dp"
                                 android:layout_height="wrap_content"
+                                android:layout_marginStart="5dp"
+                                android:layout_toEndOf="@id/first_single_seri_title"
                                 android:textSize="12sp" />
 
                         </RelativeLayout>
