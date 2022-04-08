@@ -3,7 +3,6 @@ package com.example.crypto_pay_2.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -134,10 +133,7 @@ public class RegisterPage extends AppCompatActivity {
 
         entropy = obj.toString();
 
-        System.out.println(entropy);
-
-        ConnectServerThread connectServerThread = new ConnectServerThread(nextChild,entropy);
-        connectServerThread.start();
+        new Thread(new ClientThread(entropy,nextChild)).start();
 
         User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,entropy);
         user.child(nextChild).setValue(registered);
@@ -145,15 +141,13 @@ public class RegisterPage extends AppCompatActivity {
         user.child(nextChild).child("own").setValue(newCoin);
     }
 
-    class ConnectServerThread extends Thread{
-
-        String nextChild;
+    class ClientThread implements Runnable {
         String entropy;
+        String nextChild;
 
-        ConnectServerThread(String nextChild, String entropy){
-
-            this.nextChild = nextChild;
+        public ClientThread(String entropy, String nextChild) {
             this.entropy = entropy;
+            this.nextChild = nextChild;
         }
 
         @Override
@@ -164,10 +158,11 @@ public class RegisterPage extends AppCompatActivity {
 
             Python py = Python.getInstance();
 
-            PyObject blockchain = py.getModule("blockchain");
-            PyObject creatUser = blockchain.callAttr("createUser", nextChild, entropy);
+            PyObject pyobj = py.getModule("blockchain");
 
-            System.out.println(creatUser.toString());
+            PyObject obj = pyobj.callAttr("createUser", nextChild, entropy);
+
+            System.out.println(obj.toString());
         }
     }
 }

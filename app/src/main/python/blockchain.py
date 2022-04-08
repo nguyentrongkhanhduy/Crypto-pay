@@ -1,7 +1,8 @@
-import json, socket
+import json
+import socket
 
 Clientsocket = socket.socket()
-host = "26.202.89.163"
+host = "192.168.11.130"
 port = 12345
 
 try:
@@ -9,6 +10,7 @@ try:
 except socket.error as e:
 
     pass
+
 class transmitData:
     def __init__(self, task: str, param: list):
         self.task = task
@@ -22,7 +24,6 @@ class transmitData:
 
     def encode(self):
         return json.dumps(self.toJSON()).encode()
-
 
 def createUser(id, entropy):
     data = transmitData('createaddress', [entropy, id])
