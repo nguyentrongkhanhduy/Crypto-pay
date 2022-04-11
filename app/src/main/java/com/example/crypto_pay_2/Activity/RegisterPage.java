@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.concurrent.TimeUnit;
+
 public class RegisterPage extends AppCompatActivity {
     private static final String TAG = "RegisterPage";
     
@@ -97,7 +99,11 @@ public class RegisterPage extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             count = (int) snapshot.getChildrenCount();
-                            addNewMember(count, name, email, phone);
+                            try {
+                                addNewMember(count, name, email, phone);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         @Override
@@ -117,7 +123,7 @@ public class RegisterPage extends AppCompatActivity {
         });
     }
 
-    private void addNewMember(int count, String name, String email, String phone){
+    private void addNewMember(int count, String name, String email, String phone) throws InterruptedException {
         String nextChild = String.valueOf(count+1);
         String unknown = "unknown";
         String entropy = "";
@@ -133,12 +139,17 @@ public class RegisterPage extends AppCompatActivity {
 
         entropy = obj.toString();
 
-        new Thread(new ClientThread(entropy,nextChild)).start();
-
         User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,entropy);
         user.child(nextChild).setValue(registered);
-        Coin newCoin = new Coin(0,0,10000);
+        Coin newCoin = new Coin(0,0,0);
         user.child(nextChild).child("own").setValue(newCoin);
+
+        ClientThread clientThread = new ClientThread(entropy,nextChild);
+        Thread thread = new Thread(clientThread, "connectServer");
+        thread.start();
+
+        TimeUnit.MILLISECONDS.sleep(1000);
+        thread.interrupt();
     }
 
     class ClientThread implements Runnable {

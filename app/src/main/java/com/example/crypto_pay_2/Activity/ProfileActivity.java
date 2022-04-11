@@ -177,7 +177,7 @@ public class ProfileActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProfileActivity.super.onBackPressed();
+                startActivity(new Intent(ProfileActivity.this, MainPage.class));
             }
         });
 

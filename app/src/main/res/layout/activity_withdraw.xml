@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="Số coin cần rút"
-                    android:inputType="number" />
+                    android:inputType="number"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -118,7 +118,7 @@
             android:layout_marginBottom="30dp"
             android:backgroundTint="#FF7800"
             android:text="Rút coin"
-            android:textSize="17dp" />
+            android:textSize="17dp"/>
 
     </RelativeLayout>
 

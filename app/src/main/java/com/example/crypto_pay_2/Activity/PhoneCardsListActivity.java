@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +20,7 @@ import com.example.crypto_pay_2.Model.PhoneCard;
 import com.example.crypto_pay_2.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -93,40 +95,89 @@ public class PhoneCardsListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot child: snapshot.getChildren()){
-                    String userId = child.getKey();
-                    if(child.child("phonecard").getChildrenCount() != 0){
-                        if(mListCard != null)
-                            mListCard.clear();
-
-                        ref.child(userId).child("phonecard").addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for (DataSnapshot child:snapshot.getChildren()){
-                                    PhoneCard phoneCard = new PhoneCard(String.valueOf(child.child("id").getValue()),String.valueOf(child.child("typeCard").getValue()),
-                                            String.valueOf(child.child("codeNumber").getValue()),
-                                            String.valueOf(child.child("seriNumber").getValue()),
-                                            String.valueOf(child.child("dateTime").getValue()),
-                                            String.valueOf(child.child("singlePrice").getValue()),
-                                            String.valueOf(child.child("isUsed").getValue())
-                                    );
-                                    mListCard.add(phoneCard);
-                                    Collections.sort(mListCard,PhoneCard.sortDate);
-                                }
-                                phoneCardAdapter.notifyDataSetChanged();
-                                loadingPB.setVisibility(View.GONE);
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-                    else{
+                    if(child.child("phonecard").getChildrenCount() == 0){
                         loadingPB.setVisibility(View.GONE);
                         noNoti.setVisibility(View.VISIBLE);
                     }
                 }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ref.orderByChild("mail").equalTo(my_email).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String userID = snapshot.getKey();
+                String path = ref.child(userID).child("phonecard").getKey();
+                ref.child(userID).child("phonecard").addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        PhoneCard phoneCard = new PhoneCard(String.valueOf(snapshot.child("id").getValue()),String.valueOf(snapshot.child("typeCard").getValue()),
+                                String.valueOf(snapshot.child("codeNumber").getValue()),
+                                String.valueOf(snapshot.child("seriNumber").getValue()),
+                                String.valueOf(snapshot.child("dateTime").getValue()),
+                                String.valueOf(snapshot.child("singlePrice").getValue()),
+                                String.valueOf(snapshot.child("isUsed").getValue())
+                        );
+                        mListCard.add(phoneCard);
+                        Collections.sort(mListCard,PhoneCard.sortDate);
+                        phoneCardAdapter.notifyDataSetChanged();
+                        loadingPB.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                        PhoneCard phoneCard = new PhoneCard(String.valueOf(snapshot.child("id").getValue()),String.valueOf(snapshot.child("typeCard").getValue()),
+//                                String.valueOf(snapshot.child("codeNumber").getValue()),
+//                                String.valueOf(snapshot.child("seriNumber").getValue()),
+//                                String.valueOf(snapshot.child("dateTime").getValue()),
+//                                String.valueOf(snapshot.child("singlePrice").getValue()),
+//                                String.valueOf(snapshot.child("isUsed").getValue())
+//                        );
+//
+//                        for (int i = 0; i < mListCard.size(); i++){
+//                            if(phoneCard.getId() == mListCard.get(i).getId()){
+//                                mListCard.set(i,phoneCard);
+//                            }
+//                        }
+//
+//                        phoneCardAdapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
 
             }
 
@@ -152,6 +203,10 @@ public class PhoneCardsListActivity extends AppCompatActivity {
                                     break;
                                 }
                                 ref.child(userId).child("phonecard").child(phoneCard.getId()).child("isUsed").setValue("1");
+                                finish();
+                                overridePendingTransition( 0, 0);
+                                startActivity(getIntent());
+                                overridePendingTransition( 0, 0);
                             }
 
                             @Override

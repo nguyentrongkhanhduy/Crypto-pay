@@ -248,8 +248,6 @@ public class TransferActivity extends AppCompatActivity {
 
                         }
                     });
-
-
                 }
             }
         });
@@ -286,7 +284,6 @@ public class TransferActivity extends AppCompatActivity {
                     }
                 });
             }
-
             transferCoin.setText(amountQR);
             coin.setText(typeQR);
             getBalance(typeQR);
