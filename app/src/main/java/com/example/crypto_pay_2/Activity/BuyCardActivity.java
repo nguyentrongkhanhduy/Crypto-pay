@@ -335,8 +335,8 @@ public class BuyCardActivity extends AppCompatActivity {
     }
 
     private boolean checkBalance(){
-        Double curSum = Double.parseDouble(sum.getText().toString());
-        Double curBalance = Double.parseDouble(balance.getText().toString());
+        int curSum = Integer.parseInt(sum.getText().toString());
+        int curBalance = Integer.parseInt(balance.getText().toString());
         if(curSum > curBalance) return false;
         return true;
     }

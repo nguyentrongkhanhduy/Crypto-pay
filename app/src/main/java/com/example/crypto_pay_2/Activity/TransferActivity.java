@@ -133,7 +133,7 @@ public class TransferActivity extends AppCompatActivity {
                 else if (transferCoin.getText().toString().equals("")){
                     Toast.makeText(TransferActivity.this, "Vui lòng nhập khoảng muốn giao dịch!", Toast.LENGTH_SHORT).show();
                 }
-                else if (Double.parseDouble(transferCoin.getText().toString()) > Double.parseDouble(balance.getText().toString())){
+                else if (Integer.parseInt(transferCoin.getText().toString()) > Integer.parseInt(balance.getText().toString())){
                     Toast.makeText(TransferActivity.this, "Số dư của bạn không đủ để thực hiện giao dịch!", Toast.LENGTH_SHORT).show();
                 }
                 else if (message.getText().toString().equals("")){
@@ -142,9 +142,9 @@ public class TransferActivity extends AppCompatActivity {
                 else {
                     String coinName = coin.getText().toString();
 
-                    Double transferAmount = Double.parseDouble(transferCoin.getText().toString());
-                    Double currentAmount = Double.parseDouble(balance.getText().toString());
-                    Double result = currentAmount - transferAmount;
+                    int transferAmount = Integer.parseInt(transferCoin.getText().toString());
+                    int currentAmount = Integer.parseInt(balance.getText().toString());
+                    int result = currentAmount - transferAmount;
                     String updateBalance = String.valueOf(result);
 
                     String recieverPhone = phone.getText().toString();
@@ -199,7 +199,7 @@ public class TransferActivity extends AppCompatActivity {
                                 userId = child.getKey().toString();
                                 balance = child.child("own").child(coinName).getValue().toString();
                             }
-                            Double newBalance = Double.parseDouble(balance) + transferAmount;
+                            int newBalance = Integer.parseInt(balance) + transferAmount;
                             ref.child(userId).child("own").child(coinName).setValue(newBalance);
                             ref.child(userId).child("history").child(historyId).setValue(historyId);
                             ref.child(userId).child("notification").child(historyId).setValue(historyId);

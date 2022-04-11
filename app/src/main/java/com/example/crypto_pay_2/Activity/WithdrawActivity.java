@@ -132,7 +132,7 @@ public class WithdrawActivity extends AppCompatActivity {
         else if(address.getText().toString().equals("")){
             Toast.makeText(this, "Vui lòng nhập địa chỉ ví!", Toast.LENGTH_SHORT).show();
         }
-        else if(Double.parseDouble(balance.getText().toString()) < Double.parseDouble(amount.getText().toString())){
+        else if(Integer.parseInt(balance.getText().toString()) < Integer.parseInt(amount.getText().toString())){
             Toast.makeText(this, "Số dư trong ví không đủ!", Toast.LENGTH_SHORT).show();
         }
         else {

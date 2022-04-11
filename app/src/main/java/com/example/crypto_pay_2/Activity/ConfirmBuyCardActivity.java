@@ -132,9 +132,9 @@ public class ConfirmBuyCardActivity extends AppCompatActivity {
                 String totalPaid = sum.getText().toString();
                 String typeCoinPaid = autoCplt.getText().toString();
 
-                Double payAmount = Double.parseDouble(total);
-                Double currentAmount = Double.parseDouble(balance.getText().toString());
-                Double result = currentAmount - payAmount;
+                int payAmount = Integer.parseInt(total);
+                int currentAmount = Integer.parseInt(balance.getText().toString());
+                int result = currentAmount - payAmount;
                 String updateBalance = String.valueOf(result);
 
                 ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {

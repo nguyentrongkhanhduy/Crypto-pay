@@ -131,21 +131,6 @@ public class PhoneCardsListActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                        PhoneCard phoneCard = new PhoneCard(String.valueOf(snapshot.child("id").getValue()),String.valueOf(snapshot.child("typeCard").getValue()),
-//                                String.valueOf(snapshot.child("codeNumber").getValue()),
-//                                String.valueOf(snapshot.child("seriNumber").getValue()),
-//                                String.valueOf(snapshot.child("dateTime").getValue()),
-//                                String.valueOf(snapshot.child("singlePrice").getValue()),
-//                                String.valueOf(snapshot.child("isUsed").getValue())
-//                        );
-//
-//                        for (int i = 0; i < mListCard.size(); i++){
-//                            if(phoneCard.getId() == mListCard.get(i).getId()){
-//                                mListCard.set(i,phoneCard);
-//                            }
-//                        }
-//
-//                        phoneCardAdapter.notifyDataSetChanged();
 
                     }
 
