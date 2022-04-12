@@ -504,6 +504,33 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/wallet_address_frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/other"
+                    android:layout_toRightOf="@id/money_code_frame"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/wallet_address"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="17dp"
+                        android:background="@drawable/bitcoin_wallet" />
+
+                    <TextView
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:text="Địa chỉ ví của tôi"
+                        android:textAlignment="center"
+                        android:textColor="@color/black" />
+
+                </LinearLayout>
+
+
                 <View
                     android:id="@+id/just_another_bar"
                     android:layout_width="match_parent"

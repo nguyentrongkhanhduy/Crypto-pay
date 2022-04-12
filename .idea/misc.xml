@@ -24,7 +24,7 @@
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_convert.xml" value="0.33" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_deposit.xml" value="0.2901155327342747" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_edit_avatar.xml" value="0.18426678067550234" />
-        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_edit_contact.xml" value="0.1" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_edit_contact.xml" value="0.25" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_edit_info.xml" value="0.1" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_login.xml" value="0.22447916666666667" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_main.xml" value="0.22447916666666667" />
@@ -38,10 +38,11 @@
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_register_page.xml" value="0.22447916666666667" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_scan.xml" value="0.14356435643564355" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_search_coin.xml" value="0.1" />
-        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_start_action.xml" value="0.18426678067550234" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_start_action.xml" value="0.25" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_transfer.xml" value="0.25" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_verify_please.xml" value="0.22" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_wallet.xml" value="0.18426678067550234" />
+        <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_wallet_address.xml" value="0.1718683197947841" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/activity_withdraw.xml" value="0.33" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/currency_rv_item.xml" value="0.1" />
         <entry key="..\:/DCLV/Cryptopay2/app/src/main/res/layout/dropdown.xml" value="0.18426678067550234" />

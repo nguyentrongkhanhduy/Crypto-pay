@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nhập mật khẩu"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="60dp"/>
 
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quên mật khẩu?"
-        android:textSize="15dp"
+        android:textSize="15sp"
         android:layout_marginLeft="60dp"/>
 
     <Button
@@ -69,19 +69,24 @@
         android:layout_gravity="center"
         android:backgroundTint="#FF7800"
         android:text="Đăng nhập"
-        android:textSize="17dp"
+        android:textSize="17sp"
         android:layout_marginTop="20dp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chưa có tài khoản?"
+        android:textSize="15sp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"/>
     <Button
         android:id="@+id/back_button_after_register"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:backgroundTint="@android:color/white"
-        android:text="Quay lại"
-        android:textColor="#7C7C7C"
-        android:textSize="17dp"
-        android:layout_marginTop="20dp"/>
+        android:text="Đăng ký"
+        android:backgroundTint="#FF7800"
+        android:textSize="17sp" />
 
 
 

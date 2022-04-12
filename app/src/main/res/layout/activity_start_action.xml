@@ -1,85 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Activity.StartAction">
+    tools:context=".Activity.StartAction"
+    android:background="#FEE300">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/bitcoin" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:text="CRYPTO-PAY"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/sign_up_button"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#FF7800"
-        android:text="Đăng ký"
-        android:textSize="17dp" />
-
-    <View
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#DDDDDD"
-        android:layout_marginTop="30dp"/>
+        android:layout_height="800dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/layout_bg">
 
-    <Button
-        android:id="@+id/sign_up_facebook"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#FF7800"
-        android:text="Đăng ký với Facebook"
-        android:textSize="17dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <Button
-        android:id="@+id/sign_up_google"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="#FF7800"
-        android:text="Đăng ký với Google"
-        android:textSize="17dp" />
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/bitcoin" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="#DDDDDD"
-        android:layout_marginTop="30dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="CRYPTO-PAY"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Đã có tài khoản?"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="55dp"/>
+            <Button
+                android:id="@+id/sign_up_facebook"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#FF7800"
+                android:text="Đăng ký với Facebook"
+                android:textSize="17sp" />
 
-    <Button
-        android:id="@+id/sign_in"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="#FF7800"
-        android:text="Đăng nhập"
-        android:textSize="17dp" />
+            <Button
+                android:id="@+id/sign_up_google"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#FF7800"
+                android:text="Đăng ký với Google"
+                android:textSize="17sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#DDDDDD"
+                android:layout_marginTop="30dp"/>
 
-</LinearLayout>
+            <Button
+                android:id="@+id/sign_up_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#FF7800"
+                android:text="Đăng ký"
+                android:textSize="17sp" />
+
+            <Button
+                android:id="@+id/return_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:backgroundTint="#FFFFFF"
+                android:text="Quay lại"
+                android:textColor="#949494"
+                android:textSize="17sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -16,6 +16,7 @@ import com.example.crypto_pay_2.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -39,21 +40,26 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, StartAction.class);
                 startActivity(intent);
-                finish();
             }
         });
 
-        Button loginButton = (Button) findViewById(R.id.log_in_button);
+        Button loginButton = findViewById(R.id.log_in_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                EditText email = (EditText) findViewById(R.id.email_or_phone);
-                EditText password = (EditText) findViewById(R.id.password);
+                EditText email = findViewById(R.id.email_or_phone);
+                EditText password = findViewById(R.id.password);
 
-                String txt_email = email.getText().toString();
-                String txt_password = password.getText().toString();
-                loginUser(txt_email,txt_password);
+                String txt_email = email.getText().toString().trim();
+                String txt_password = password.getText().toString().trim();
+
+                if(txt_email.equals("") || txt_password.equals("")){
+                    Toast.makeText(Login.this, "Vui lòng nhập đầy đủ thông tin đăng nhập!", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    loginUser(txt_email,txt_password);
+                }
             }
         });
     }
@@ -63,9 +69,16 @@ public class Login extends AppCompatActivity {
             @Override
             public void onSuccess(AuthResult authResult) {
                 Toast.makeText(Login.this,"Đăng nhập thành công",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Login.this,MainPage.class);
-                intent.putExtra("email",email);
-                startActivity(intent);
+                FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
+                fuser.reload();
+                if(fuser.isEmailVerified()){
+                    Intent intent = new Intent(Login.this,MainPage.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(Login.this,VerifyPleaseActivity.class);
+                    startActivity(intent);
+                }
                 finishAffinity();
             }
         });

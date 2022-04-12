@@ -18,8 +18,8 @@ public class StartAction extends AppCompatActivity {
     String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
     public static final int MY_REQUEST_CODE = 4;
 
-    Button signinButton;
     Button registerButton;
+    Button returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,24 +37,23 @@ public class StartAction extends AppCompatActivity {
     }
 
     private void initUI(){
-        signinButton = (Button) findViewById(R.id.sign_in);
-        registerButton = (Button) findViewById(R.id.sign_up_button);
+        registerButton = findViewById(R.id.sign_up_button);
+        returnButton = findViewById(R.id.return_button);
     }
 
     private void creatUI(){
-        signinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(StartAction.this, Login.class);
-                startActivity(intent);
-            }
-        });
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(StartAction.this,RegisterPage.class);
                 startActivity(intent);
+            }
+        });
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StartAction.super.onBackPressed();
             }
         });
     }

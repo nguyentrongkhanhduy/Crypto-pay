@@ -17,8 +17,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class StartPage extends AppCompatActivity {
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +38,7 @@ public class StartPage extends AppCompatActivity {
         boolean check = checkUser();
 
         if (!check){
-            Intent intent = new Intent(this, StartAction.class);
+            Intent intent = new Intent(this, Login.class);
             startActivity(intent);
         }
         else{
@@ -64,7 +62,5 @@ public class StartPage extends AppCompatActivity {
         if (user == null) return false;
         return true;
     }
-
-
 
 }

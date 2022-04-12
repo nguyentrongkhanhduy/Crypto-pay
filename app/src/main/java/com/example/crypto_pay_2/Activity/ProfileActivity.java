@@ -28,7 +28,6 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView avatar;
     ImageButton editAvatar;
     ImageButton back;
-    ImageButton qrCode;
     ImageButton logOut;
     TextView editInfo;
     TextView editContact;
@@ -44,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity {
     LinearLayout addressFrame;
     LinearLayout mailFrame;
     LinearLayout qrFrame;
+    LinearLayout waFramme;
 
     TextView location;
     TextView birth;
@@ -80,7 +80,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         back = findViewById(R.id.back_icon);
         editAvatar = findViewById(R.id.edit_avatar);
-        qrCode = findViewById(R.id.money_code);
         logOut = findViewById(R.id.log_out_button);
         editInfo = findViewById(R.id.to_edit_introduction);
         editContact = findViewById(R.id.to_edit_contact);
@@ -96,6 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
         addressFrame = findViewById(R.id.address_frame);
         mailFrame = findViewById(R.id.mail_frame);
         qrFrame = findViewById(R.id.money_code_frame);
+        waFramme = findViewById(R.id.wallet_address_frame);
 
         location = findViewById(R.id.city);
         birth = findViewById(R.id.birth_day);
@@ -220,6 +220,13 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this,QrActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        waFramme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this,WalletAddressActivity.class));
             }
         });
     }
