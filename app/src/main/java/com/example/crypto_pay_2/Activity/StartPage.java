@@ -1,9 +1,13 @@
 package com.example.crypto_pay_2.Activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +25,6 @@ public class StartPage extends AppCompatActivity {
         requestWindowFeature(getWindow().FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
-
         setContentView(R.layout.start_page);
 
         Handler hand = new Handler();
@@ -34,18 +37,34 @@ public class StartPage extends AppCompatActivity {
     }
 
     private void startAction(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null){
+        boolean check = checkUser();
+
+        if (!check){
             Intent intent = new Intent(this, StartAction.class);
             startActivity(intent);
         }
         else{
-            Intent intent = new Intent(this, MainPage.class);
-            intent.putExtra("email",user.getEmail());
-            startActivity(intent);
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            user.reload();
+            boolean isVerify = user.isEmailVerified();
+            if(!isVerify){
+                startActivity(new Intent(this, VerifyPleaseActivity.class));
+            }
+            else{
+                Intent intent = new Intent(this, MainPage.class);
+                intent.putExtra("email",user.getEmail());
+                startActivity(intent);
+            }
         }
         finish();
     }
+
+    private boolean checkUser(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return false;
+        return true;
+    }
+
 
 
 }
