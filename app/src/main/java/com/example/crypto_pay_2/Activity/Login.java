@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,12 @@ public class Login extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
+    EditText ed_txtEmail;
+    EditText ed_txtPassword;
+
+    TextView returnButton; //register button
+    Button loginButton;
+    TextView forgotPass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +38,28 @@ public class Login extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
 
-        EditText ed_txtEmail = (EditText) findViewById(id.email_or_phone);
-        EditText ed_txtPassword = (EditText) findViewById(id.password);
+        initUI();
 
-        Button returnButton = (Button) findViewById(R.id.back_button_after_register);
+        createUI();
+    }
+
+    private void initUI(){
+        ed_txtEmail = (EditText) findViewById(id.email_or_phone);
+        ed_txtPassword = (EditText) findViewById(id.password);
+        returnButton = findViewById(R.id.back_button_after_register);
+        loginButton = findViewById(R.id.log_in_button);
+        forgotPass = findViewById(id.forget_password);
+    }
+
+    private void createUI(){
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Login.this, StartAction.class);
+                Intent intent = new Intent(Login.this, RegisterPage.class);
                 startActivity(intent);
             }
         });
 
-        Button loginButton = findViewById(R.id.log_in_button);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +76,13 @@ public class Login extends AppCompatActivity {
                 else{
                     loginUser(txt_email,txt_password);
                 }
+            }
+        });
+
+        forgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Login.this, ResetPasswordActivity.class));
             }
         });
     }

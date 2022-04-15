@@ -1,93 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.Login">
+    tools:context=".Activity.Login"
+    android:background="#FEE300">
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/bitcoin" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="800dp"
+        android:background="@drawable/layout_bg"
+        android:layout_alignParentBottom="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="CRYPTO-PAY"
-        android:textColor="@color/black"
-        android:textSize="30dp"
-        android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nhập email"
-        android:textSize="15dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="60dp"/>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:src="@drawable/bitcoin" />
 
-    <EditText
-        android:id="@+id/email_or_phone"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:layout_gravity="center" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:text="CRYPTO-PAY"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nhập mật khẩu"
-        android:textSize="15sp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="60dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhập email"
+                android:textSize="15dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="60dp"/>
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:inputType="numberPassword"
-        android:maxLength="6"
-        android:layout_gravity="center" />
+            <EditText
+                android:id="@+id/email_or_phone"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/forget_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Quên mật khẩu?"
-        android:textSize="15sp"
-        android:layout_marginLeft="60dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhập mật khẩu"
+                android:textSize="15sp"
+                android:layout_marginTop="30dp"
+                android:layout_marginLeft="60dp"/>
 
-    <Button
-        android:id="@+id/log_in_button"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="#FF7800"
-        android:text="Đăng nhập"
-        android:textSize="17sp"
-        android:layout_marginTop="20dp"/>
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:maxLength="6"
+                android:layout_gravity="center" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chưa có tài khoản?"
-        android:textSize="15sp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"/>
-    <Button
-        android:id="@+id/back_button_after_register"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Đăng ký"
-        android:backgroundTint="#FF7800"
-        android:textSize="17sp" />
+            <Button
+                android:id="@+id/log_in_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="#FF7800"
+                android:text="Đăng nhập"
+                android:textSize="17sp"
+                android:layout_marginTop="20dp"/>
 
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
 
+                <TextView
+                    android:id="@+id/forget_password"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:text="Quên mật khẩu?"
+                    android:textSize="17sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textAlignment="center"
+                    android:textStyle="bold"/>
 
-</LinearLayout>
+                <TextView
+                    android:id="@+id/back_button_after_register"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:text="Đăng ký"
+                    android:textSize="17sp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:textAlignment="center"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
