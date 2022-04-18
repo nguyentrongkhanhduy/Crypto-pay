@@ -1,19 +1,27 @@
 package com.example.crypto_pay_2.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.crypto_pay_2.AESCrypt;
 import com.example.crypto_pay_2.Model.History;
 import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -46,6 +54,7 @@ public class TransferActivity extends AppCompatActivity {
     Button transferBegin;
     Button scan;
     Button recieveBegin;
+    TextView checkTC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +83,7 @@ public class TransferActivity extends AppCompatActivity {
         transferBegin = findViewById(R.id.begin_transfer_button);
         scan = findViewById(R.id.to_scan);
         recieveBegin = findViewById(R.id.begin_recieve_button);
+        checkTC = findViewById(R.id.check_tC);
     }
 
     private void creatUI(){
@@ -140,81 +150,14 @@ public class TransferActivity extends AppCompatActivity {
                     Toast.makeText(TransferActivity.this, "Vui lòng nhập lời nhắn!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    String coinName = coin.getText().toString();
-
-                    int transferAmount = Integer.parseInt(transferCoin.getText().toString());
-                    int currentAmount = Integer.parseInt(balance.getText().toString());
-                    int result = currentAmount - transferAmount;
-                    String updateBalance = String.valueOf(result);
-
-                    String recieverPhone = phone.getText().toString();
-                    String recieverName = name.getText().toString();
-                    String senderMessage = message.getText().toString();
-
-                    SimpleDateFormat formatToDisplayDate = new SimpleDateFormat("dd/MM/yyyy");
-                    SimpleDateFormat formatToDisplayTime = new SimpleDateFormat("HH:mm:ss");
-                    SimpleDateFormat formatToAdd = new SimpleDateFormat("ddMMyyyyHHMMss");
-                    Calendar c = Calendar.getInstance();
-                    String date = formatToDisplayDate.format(c.getTime());
-                    String time = formatToDisplayTime.format(c.getTime());
-                    String historyId = formatToAdd.format(c.getTime());
-
-                    ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String userId = "";
-                            String senderName = "";
-                            for (DataSnapshot child : snapshot.getChildren())
-                            {
-                                userId = child.getKey().toString();
-                                senderName = child.child("name").getValue().toString();
-                            }
-                            ref.child(userId).child("own").child(coinName).setValue(updateBalance);
-                            History history = new History("Giao dịch coin",
-                                    transferAmount + " " + coinName,
-                                    date,
-                                    time,
-                                    senderName,
-                                    recieverName,
-                                    historyId,
-                                    senderMessage);
-                            ref.child(userId).child("history").child(historyId).setValue(historyId);
-                            ref2.child(historyId).setValue(history);
-                        }
-
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-                    ref.orderByChild("phone").equalTo(recieverPhone).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            String userId = "";
-                            String balance = "";
-                            for (DataSnapshot child : snapshot.getChildren())
-                            {
-                                userId = child.getKey().toString();
-                                balance = child.child("own").child(coinName).getValue().toString();
-                            }
-                            int newBalance = Integer.parseInt(balance) + transferAmount;
-                            ref.child(userId).child("own").child(coinName).setValue(newBalance);
-                            ref.child(userId).child("history").child(historyId).setValue(historyId);
-                            ref.child(userId).child("notification").child(historyId).setValue(historyId);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                    Toast.makeText(TransferActivity.this, "Giao dịch thành công!",Toast.LENGTH_SHORT).show();
-                    finish();
-                    overridePendingTransition( 0, 0);
-                    startActivity(getIntent());
-                    overridePendingTransition( 0, 0);
+                    openTransactionCodeDialog(Gravity.CENTER);
+//                    String checkCode = checkTC.getText().toString();
+//                    if(checkCode.equals("true")){
+//                        Toast.makeText(TransferActivity.this, "true", Toast.LENGTH_SHORT).show();
+//                    }
+//                    else{
+//                        Toast.makeText(TransferActivity.this, "false", Toast.LENGTH_SHORT).show();
+//                    }
                 }
             }
         });
@@ -333,5 +276,153 @@ public class TransferActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void openTransactionCodeDialog(int gravity){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_confirm_transaction);
+
+        Window window = dialog.getWindow();
+        if(window == null){
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams attribute = window.getAttributes();
+        attribute.gravity = gravity;
+        window.setAttributes(attribute);
+
+        if (Gravity.BOTTOM == gravity) dialog.setCancelable(true);
+        else dialog.setCancelable(false);
+
+        EditText code = dialog.findViewById(R.id.transaction_code);
+        Button confirm = dialog.findViewById(R.id.confirm_tC);
+        Button cancel = dialog.findViewById(R.id.cancel_tC);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tC = code.getText().toString();
+                ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String realTc = "";
+                        for (DataSnapshot child: snapshot.getChildren()){
+                            realTc = child.child("transactionCode").getValue().toString();
+                        }
+                        try {
+                            String decrypted = AESCrypt.decrypt(realTc);
+                            if(!tC.equals(decrypted)){
+                                Toast.makeText(TransferActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                            else{
+                                doTransaction();
+                                dialog.dismiss();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(TransferActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void doTransaction(){
+        String coinName = coin.getText().toString();
+
+        int transferAmount = Integer.parseInt(transferCoin.getText().toString());
+        int currentAmount = Integer.parseInt(balance.getText().toString());
+        int result = currentAmount - transferAmount;
+        String updateBalance = String.valueOf(result);
+
+        String recieverPhone = phone.getText().toString();
+        String recieverName = name.getText().toString();
+        String senderMessage = message.getText().toString();
+
+        SimpleDateFormat formatToDisplayDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatToDisplayTime = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat formatToAdd = new SimpleDateFormat("ddMMyyyyHHMMss");
+        Calendar c = Calendar.getInstance();
+        String date = formatToDisplayDate.format(c.getTime());
+        String time = formatToDisplayTime.format(c.getTime());
+        String historyId = formatToAdd.format(c.getTime());
+
+        ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String userId = "";
+                String senderName = "";
+                for (DataSnapshot child : snapshot.getChildren())
+                {
+                    userId = child.getKey().toString();
+                    senderName = child.child("name").getValue().toString();
+                }
+                ref.child(userId).child("own").child(coinName).setValue(updateBalance);
+                History history = new History("Giao dịch coin",
+                        transferAmount + " " + coinName,
+                        date,
+                        time,
+                        senderName,
+                        recieverName,
+                        historyId,
+                        senderMessage);
+                ref.child(userId).child("history").child(historyId).setValue(historyId);
+                ref2.child(historyId).setValue(history);
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ref.orderByChild("phone").equalTo(recieverPhone).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String userId = "";
+                String balance = "";
+                for (DataSnapshot child : snapshot.getChildren())
+                {
+                    userId = child.getKey().toString();
+                    balance = child.child("own").child(coinName).getValue().toString();
+                }
+                int newBalance = Integer.parseInt(balance) + transferAmount;
+                ref.child(userId).child("own").child(coinName).setValue(newBalance);
+                ref.child(userId).child("history").child(historyId).setValue(historyId);
+                ref.child(userId).child("notification").child(historyId).setValue(historyId);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Toast.makeText(TransferActivity.this, "Giao dịch thành công!",Toast.LENGTH_SHORT).show();
+        finish();
+        overridePendingTransition( 0, 0);
+        startActivity(getIntent());
+        overridePendingTransition( 0, 0);
     }
 }

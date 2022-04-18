@@ -3,42 +3,29 @@ package com.example.crypto_pay_2.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.chaquo.python.PyObject;
-import com.chaquo.python.Python;
-import com.chaquo.python.android.AndroidPlatform;
-import com.example.crypto_pay_2.Model.Coin;
-import com.example.crypto_pay_2.Model.User;
 import com.example.crypto_pay_2.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.concurrent.TimeUnit;
 
 public class RegisterPage extends AppCompatActivity {
-    private static final String TAG = "RegisterPage";
-    
-    FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    DatabaseReference user = FirebaseDatabase.getInstance().getReference("user");
 
-    int count = 0;
+
+    ImageButton backButton;
+    EditText email;
+    EditText password;
+    EditText rePassword;
+    EditText name;
+    EditText phone;
+    Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +35,24 @@ public class RegisterPage extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_register_page);
 
-        Button backButton = (Button) findViewById(R.id.back_button_after_fill_in);
+        initUI();
+
+        createUI();
+    }
+
+    private void initUI() {
+        backButton = findViewById(R.id.back_button_after_fill_in);
+
+        email = findViewById(R.id.edit_text_email);
+        password = findViewById(R.id.edit_text_password);
+        rePassword = findViewById(R.id.edit_text_confirm_password);
+        name = findViewById(R.id.edit_text_name);
+        phone = findViewById(R.id.edit_text_phone);
+
+        loginButton = findViewById(R.id.sign_up_after_fill_in);
+    }
+
+    private void createUI() {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,18 +60,10 @@ public class RegisterPage extends AppCompatActivity {
             }
         });
 
-        EditText email = (EditText) findViewById(R.id.edit_text_email);
-        EditText password = (EditText) findViewById(R.id.edit_text_password);
-        EditText rePassword = (EditText) findViewById(R.id.edit_text_confirm_password);
-        EditText name = (EditText) findViewById(R.id.edit_text_name);
-        EditText phone = (EditText) findViewById(R.id.edit_text_phone);
-
-
-        Button loginButton = (Button) findViewById(R.id.sign_up_after_fill_in);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String txt_email = email.getText().toString();
+                String txt_email = email.getText().toString().trim();
                 String txt_password = password.getText().toString();
                 String txt_rePassword = rePassword.getText().toString();
                 String txt_name = name.getText().toString();
@@ -76,109 +72,23 @@ public class RegisterPage extends AppCompatActivity {
                 if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_name) || TextUtils.isEmpty(txt_phone)){
                     Toast.makeText(RegisterPage.this,"Vui lòng điền đầy đủ thông tin!",Toast.LENGTH_SHORT).show();
                 }
+                else if(!Patterns.EMAIL_ADDRESS.matcher(txt_email).matches()){
+                    email.setError("Vui lòng nhập email đúng định dạng");
+                    email.requestFocus();
+                }
                 else if (txt_password.equals(txt_rePassword) == false){
                     Toast.makeText(RegisterPage.this,"Sai mật khẩu!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    registerUser(txt_email,txt_password,txt_name,txt_phone);
-                }
-
-
-            }
-        });
-    }
-
-    private void registerUser(String email, String password, String name, String phone){
-
-        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(RegisterPage.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-
-
-                if(task.isSuccessful()){
-
-                    user.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            count = (int) snapshot.getChildrenCount();
-                            try {
-                                addNewMember(count, name, email, phone);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-                    Toast.makeText(RegisterPage.this,"Đăng ký thành công",Toast.LENGTH_SHORT).show();
-                    FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-                    fuser.sendEmailVerification();
-                    Intent intent = new Intent(RegisterPage.this,VerifyPleaseActivity.class);
+                    Intent intent = new Intent(RegisterPage.this, SecondaryPasswordActivity.class);
+                    intent.putExtra("email",txt_email);
+                    intent.putExtra("password",txt_password);
+                    intent.putExtra("name",txt_name);
+                    intent.putExtra("phone",txt_phone);
                     startActivity(intent);
-                    finishAffinity();
-                }
-                else{
-                    Toast.makeText(RegisterPage.this,"Đăng ký thất bại!",Toast.LENGTH_SHORT).show();
+//                    registerUser(txt_email,txt_password,txt_name,txt_phone);
                 }
             }
         });
-    }
-
-    private void addNewMember(int count, String name, String email, String phone) throws InterruptedException {
-        String nextChild = String.valueOf(count+1);
-        String unknown = "unknown";
-        String entropy = "";
-
-        if(!Python.isStarted()){
-            Python.start(new AndroidPlatform(this));
-        }
-
-        Python py = Python.getInstance();
-
-        PyObject pyobj = py.getModule("entropy");
-        PyObject obj = pyobj.callAttr("generateEntropy", 128);
-
-        entropy = obj.toString();
-
-        User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,entropy);
-        user.child(nextChild).setValue(registered);
-        Coin newCoin = new Coin(0,0,0);
-        user.child(nextChild).child("own").setValue(newCoin);
-
-        ClientThread clientThread = new ClientThread(entropy,nextChild);
-        Thread thread = new Thread(clientThread, "connectServer");
-        thread.start();
-
-        TimeUnit.MILLISECONDS.sleep(1000);
-        thread.interrupt();
-    }
-
-    class ClientThread implements Runnable {
-        String entropy;
-        String nextChild;
-
-        public ClientThread(String entropy, String nextChild) {
-            this.entropy = entropy;
-            this.nextChild = nextChild;
-        }
-
-        @Override
-        public void run() {
-            if(!Python.isStarted()){
-                Python.start(new AndroidPlatform(RegisterPage.this));
-            }
-
-            Python py = Python.getInstance();
-
-            PyObject pyobj = py.getModule("blockchain");
-
-            PyObject obj = pyobj.callAttr("createUser", nextChild, entropy);
-
-            System.out.println(obj.toString());
-        }
     }
 }

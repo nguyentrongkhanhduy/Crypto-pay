@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cryptopay2">
         <activity
+            android:name=".Activity.SecondaryPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity.ResetPasswordActivity"
             android:exported="false" />
         <activity

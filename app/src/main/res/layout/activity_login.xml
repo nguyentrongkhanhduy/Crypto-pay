@@ -48,7 +48,9 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:layout_gravity="center" />
+                android:layout_gravity="center"
+                android:padding="12dp"
+                android:background="@drawable/bg_white_corner_10dp_border_grey"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -62,9 +64,11 @@
                 android:id="@+id/password"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:inputType="numberPassword"
                 android:maxLength="6"
-                android:layout_gravity="center" />
+                android:padding="12dp"
+                android:background="@drawable/bg_white_corner_10dp_border_grey"/>
 
             <Button
                 android:id="@+id/log_in_button"

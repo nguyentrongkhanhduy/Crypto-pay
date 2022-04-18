@@ -36,7 +36,6 @@ public class MainPage extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,start_frag).commit();
 
-//        new Thread(new Listen()).start();
     }
 
     private BottomNavigationView.OnItemSelectedListener bottomNavMethod=new NavigationBarView.OnItemSelectedListener() {

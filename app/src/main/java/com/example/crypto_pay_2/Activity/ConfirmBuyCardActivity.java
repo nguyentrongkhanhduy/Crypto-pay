@@ -1,17 +1,25 @@
 package com.example.crypto_pay_2.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.crypto_pay_2.AESCrypt;
 import com.example.crypto_pay_2.Model.History;
 import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -116,48 +124,68 @@ public class ConfirmBuyCardActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SimpleDateFormat formatToDisplayDate = new SimpleDateFormat("dd/MM/yyyy");
-                SimpleDateFormat formatToDisplayTime = new SimpleDateFormat("HH:mm:ss");
-                SimpleDateFormat formatToAdd = new SimpleDateFormat("ddMMyyyyHHMMss");
-                Calendar c = Calendar.getInstance();
-                String date = formatToDisplayDate.format(c.getTime());
-                String time = formatToDisplayTime.format(c.getTime());
-                String historyId = formatToAdd.format(c.getTime());
+                openTransactionCodeDialog(Gravity.CENTER);
+            }
+        });
+    }
 
-                Bundle extras = getIntent().getExtras();
-                String total = extras.getString("sum");
-                String typeOfCard = typeCard.getText().toString();
-                String singleOfCard = single.getText().toString();
-                String amountOfCard = amount.getText().toString();
-                String totalPaid = sum.getText().toString();
-                String typeCoinPaid = autoCplt.getText().toString();
+    private void openTransactionCodeDialog(int gravity){
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_confirm_transaction);
 
-                int payAmount = Integer.parseInt(total);
-                int currentAmount = Integer.parseInt(balance.getText().toString());
-                int result = currentAmount - payAmount;
-                String updateBalance = String.valueOf(result);
+        Window window = dialog.getWindow();
+        if(window == null){
+            return;
+        }
 
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams attribute = window.getAttributes();
+        attribute.gravity = gravity;
+        window.setAttributes(attribute);
+
+        if (Gravity.BOTTOM == gravity) dialog.setCancelable(true);
+        else dialog.setCancelable(false);
+
+        EditText code = dialog.findViewById(R.id.transaction_code);
+        Button confirm = dialog.findViewById(R.id.confirm_tC);
+        Button cancel = dialog.findViewById(R.id.cancel_tC);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tC = code.getText().toString();
                 ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String userId = "";
-                        String senderName = "";
-                        for (DataSnapshot child : snapshot.getChildren())
-                        {
-                            userId = child.getKey().toString();
-                            senderName = child.child("name").getValue().toString();
+                        String realTc = "";
+                        for (DataSnapshot child: snapshot.getChildren()){
+                            realTc = child.child("transactionCode").getValue().toString();
                         }
-                        ref.child(userId).child("own").child(typeCoinPaid).setValue(updateBalance);
-                        History history = new History("Mua mã thẻ điện thoại",
-                                totalPaid,
-                                date,
-                                time,
-                                senderName,
-                                "Dịch vụ mua mã thẻ",
-                                historyId,
-                                amountOfCard + " " + typeOfCard + " " + singleOfCard);
-                        ref.child(userId).child("history").child(historyId).setValue(historyId);
-                        ref2.child(historyId).setValue(history);
+                        try {
+                            String decrypted = AESCrypt.decrypt(realTc);
+                            if(!tC.equals(decrypted)){
+                                Toast.makeText(ConfirmBuyCardActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                            else{
+                                doTransaction();
+                                dialog.dismiss();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Toast.makeText(ConfirmBuyCardActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
                     }
 
                     @Override
@@ -165,18 +193,73 @@ public class ConfirmBuyCardActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-                Intent intent = new Intent(ConfirmBuyCardActivity.this, BuyResultActivity.class);
-                intent.putExtra("typeCard", typeCard.getText().toString());
-                intent.putExtra("single", single.getText().toString());
-                intent.putExtra("amount", amount.getText().toString());
-                intent.putExtra("sum", sum.getText().toString());
-                intent.putExtra("dateTime", time + " - " + date);
-                intent.putExtra("typeCoin", autoCplt.getText().toString());
-                intent.putExtra("transID", historyId);
-                startActivity(intent);
             }
         });
+
+        dialog.show();
     }
+
+    private void doTransaction(){
+        SimpleDateFormat formatToDisplayDate = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatToDisplayTime = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat formatToAdd = new SimpleDateFormat("ddMMyyyyHHMMss");
+        Calendar c = Calendar.getInstance();
+        String date = formatToDisplayDate.format(c.getTime());
+        String time = formatToDisplayTime.format(c.getTime());
+        String historyId = formatToAdd.format(c.getTime());
+
+        Bundle extras = getIntent().getExtras();
+        String total = extras.getString("sum");
+        String typeOfCard = typeCard.getText().toString();
+        String singleOfCard = single.getText().toString();
+        String amountOfCard = amount.getText().toString();
+        String totalPaid = sum.getText().toString();
+        String typeCoinPaid = autoCplt.getText().toString();
+
+        int payAmount = Integer.parseInt(total);
+        int currentAmount = Integer.parseInt(balance.getText().toString());
+        int result = currentAmount - payAmount;
+        String updateBalance = String.valueOf(result);
+
+        ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String userId = "";
+                String senderName = "";
+                for (DataSnapshot child : snapshot.getChildren())
+                {
+                    userId = child.getKey().toString();
+                    senderName = child.child("name").getValue().toString();
+                }
+                ref.child(userId).child("own").child(typeCoinPaid).setValue(updateBalance);
+                History history = new History("Mua mã thẻ điện thoại",
+                        totalPaid,
+                        date,
+                        time,
+                        senderName,
+                        "Dịch vụ mua mã thẻ",
+                        historyId,
+                        amountOfCard + " " + typeOfCard + " " + singleOfCard);
+                ref.child(userId).child("history").child(historyId).setValue(historyId);
+                ref2.child(historyId).setValue(history);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        Intent intent = new Intent(ConfirmBuyCardActivity.this, BuyResultActivity.class);
+        intent.putExtra("typeCard", typeCard.getText().toString());
+        intent.putExtra("single", single.getText().toString());
+        intent.putExtra("amount", amount.getText().toString());
+        intent.putExtra("sum", sum.getText().toString());
+        intent.putExtra("dateTime", time + " - " + date);
+        intent.putExtra("typeCoin", autoCplt.getText().toString());
+        intent.putExtra("transID", historyId);
+        startActivity(intent);
+    }
+
 }

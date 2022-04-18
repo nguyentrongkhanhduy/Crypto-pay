@@ -17,11 +17,13 @@ public class User {
     private String hometown;
     private String entropy;
 
+    private String transactionCode;
+
     public User(){
 
     }
 
-    public User(String name, String phone, String mail, String address, String city, String gender, String birth, String status, String education, String occupation, String hometown, String entropy) {
+    public User(String name, String phone, String mail, String address, String city, String gender, String birth, String status, String education, String occupation, String hometown, String entropy, String transactionCode) {
         this.name = name;
         this.phone = phone;
         this.mail = mail;
@@ -34,6 +36,7 @@ public class User {
         this.occupation = occupation;
         this.hometown = hometown;
         this.entropy = entropy;
+        this.transactionCode = transactionCode;
     }
 
     public String getEntropy() {
@@ -130,6 +133,14 @@ public class User {
 
     public void setHometown(String hometown) {
         this.hometown = hometown;
+    }
+
+    public String getTransactionCode() {
+        return transactionCode;
+    }
+
+    public void setTransactionCode(String transactionCode) {
+        this.transactionCode = transactionCode;
     }
 
     public Map<String, Object> toMap(){

@@ -58,5 +58,4 @@ public class StartPage extends AppCompatActivity {
         if (user == null) return false;
         return true;
     }
-
 }
