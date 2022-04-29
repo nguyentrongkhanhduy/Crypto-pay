@@ -138,31 +138,59 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/recharge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:text="Nạp tiền"
-            android:layout_below="@id/a_random_frame"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="30dp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            android:textSize="15dp"/>
-
         <View
             android:id="@+id/just_a_bar_2"
             android:layout_width="match_parent"
             android:layout_height="5dp"
-            android:layout_below="@id/recharge"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/a_random_frame"
+            android:layout_marginTop="20dp"
+            android:background="#DDDDDD"/>
+
+        <LinearLayout
+            android:id="@+id/w_address_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/just_a_bar_2"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:text="Địa chỉ ví"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/wallet_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="none"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/just_a_bar_3"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/w_address_frame"
+            android:layout_marginTop="20dp"
             android:background="#DDDDDD"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/just_a_bar_2"
+            android:layout_below="@id/just_a_bar_3"
             android:layout_marginTop="20dp"
             android:orientation="horizontal"
             android:layout_marginStart="30dp">

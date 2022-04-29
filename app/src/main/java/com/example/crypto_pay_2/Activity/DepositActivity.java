@@ -9,11 +9,13 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,13 +28,14 @@ import java.util.Map;
 public class DepositActivity extends AppCompatActivity {
 
     String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("address/lvcoin");
 
     ImageButton back;
 
     TextInputEditText balance;
     AutoCompleteTextView autoCplt;
 
-    TextInputEditText amount;
     TextInputEditText address;
 
     @Override
@@ -56,7 +59,6 @@ public class DepositActivity extends AppCompatActivity {
         balance = (TextInputEditText) findViewById(R.id.coin_balance);
         autoCplt = findViewById(R.id.coin_dropdown);
         back = (ImageButton) findViewById(R.id.back_icon);
-        amount = findViewById(R.id.coin_to_deposit);
         address = findViewById(R.id.coin_address);
     }
 
@@ -80,7 +82,6 @@ public class DepositActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String item = adapterView.getItemAtPosition(i).toString();
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
                 ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -96,6 +97,49 @@ public class DepositActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+        ref.orderByChild("mail").equalTo(my_email).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String userId = snapshot.getKey();
+                ref2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot child:snapshot.getChildren()){
+                            if(child.getValue().toString().equals(userId)){
+                                address.setText(child.getKey());
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

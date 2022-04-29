@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +25,7 @@ import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -89,9 +91,17 @@ public class WalletFragment extends Fragment {
     RelativeLayout general;
     AutoCompleteTextView autoCplt;
     TextInputEditText balance;
+    TextInputEditText address;
 
 
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    String my_email = currentUser.getEmail();
+
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
+    DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("address/lvcoin");
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,13 +110,11 @@ public class WalletFragment extends Fragment {
 
         creatUI(view);
 
-//        ImageButton logOut = (ImageButton) view.findViewById(R.id.log_out_button);
         initUI();
 
-        // Inflate the layout for this fragment
+        getInfo();
+
         return view;
-
-
 
     }
 
@@ -120,6 +128,7 @@ public class WalletFragment extends Fragment {
         general = (RelativeLayout) view.findViewById(R.id.general_info);
         autoCplt = view.findViewById(R.id.coin_dropdown);
         balance = (TextInputEditText) view.findViewById(R.id.coin_balance);
+        address = view.findViewById(R.id.wallet_address);
     }
 
     void initUI(){
@@ -133,28 +142,24 @@ public class WalletFragment extends Fragment {
             }
         });
 
-        Uri photoUrl = currentUser.getPhotoUrl();
-        Glide.with(this).load(photoUrl).error(R.drawable.avatardefault).into(avatar);
-
-        String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-        email.setText(my_email);
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
-        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+        toProfile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot child: snapshot.getChildren()){
-                    phone.setText(String.valueOf(child.child("phone").getValue()));
-                    name.setText(String.valueOf(child.child("name").getValue()));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                startActivity(intent);
             }
         });
 
+        general.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),ProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    void getInfo(){
         String[] item = {"bitcoin","ethereum","lvcoin"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.dropdown,item);
         autoCplt.setAdapter(adapter);
@@ -183,19 +188,66 @@ public class WalletFragment extends Fragment {
             }
         });
 
-        toProfile.setOnClickListener(new View.OnClickListener() {
+        Uri photoUrl = currentUser.getPhotoUrl();
+        Glide.with(this).load(photoUrl).error(R.drawable.avatardefault).into(avatar);
+
+        email.setText(my_email);
+
+        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                startActivity(intent);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot child: snapshot.getChildren()){
+                    phone.setText(String.valueOf(child.child("phone").getValue()));
+                    name.setText(String.valueOf(child.child("name").getValue()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        general.setOnClickListener(new View.OnClickListener() {
+        ref.orderByChild("mail").equalTo(my_email).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(),ProfileActivity.class);
-                startActivity(intent);
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                String userId = snapshot.getKey();
+                ref2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot child:snapshot.getChildren()){
+                            if(child.getValue().toString().equals(userId)){
+                                address.setText(child.getKey());
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
