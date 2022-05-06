@@ -39,6 +39,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class WithdrawActivity extends AppCompatActivity {
 
     String my_email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
@@ -239,9 +241,8 @@ public class WithdrawActivity extends AppCompatActivity {
                         for (DataSnapshot child: snapshot.getChildren()){
                             realTc = child.child("transactionCode").getValue().toString();
                         }
-                        try {
-                            String decrypted = AESCrypt.decrypt(realTc);
-                            if(!tC.equals(decrypted)){
+                            BCrypt.Result result = BCrypt.verifyer().verify(tC.toCharArray(),realTc);
+                            if(!result.verified){
                                 Toast.makeText(WithdrawActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
@@ -253,11 +254,6 @@ public class WithdrawActivity extends AppCompatActivity {
                                 }
                                 dialog.dismiss();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Toast.makeText(WithdrawActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        }
                     }
 
                     @Override

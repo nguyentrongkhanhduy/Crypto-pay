@@ -40,6 +40,7 @@ public class EditAvatarActivity extends AppCompatActivity {
     ImageButton back;
     ImageView avatar;
 
+
     FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
     private Uri avaUri;
 
@@ -96,6 +97,8 @@ public class EditAvatarActivity extends AppCompatActivity {
     }
 
     private void getInfo(){
+
+
         Uri photoUrl = currentUser.getPhotoUrl();
         Glide.with(this).load(photoUrl).error(R.drawable.avatardefault).into(avatar);
     }
@@ -166,6 +169,7 @@ public class EditAvatarActivity extends AppCompatActivity {
     }
 
     private void upDateAvatar(){
+
         UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
                 .setPhotoUri(avaUri).build();
 

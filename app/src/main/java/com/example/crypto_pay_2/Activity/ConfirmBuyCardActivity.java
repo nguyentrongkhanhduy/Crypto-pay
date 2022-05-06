@@ -35,6 +35,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class ConfirmBuyCardActivity extends AppCompatActivity {
 
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
@@ -171,19 +173,13 @@ public class ConfirmBuyCardActivity extends AppCompatActivity {
                         for (DataSnapshot child: snapshot.getChildren()){
                             realTc = child.child("transactionCode").getValue().toString();
                         }
-                        try {
-                            String decrypted = AESCrypt.decrypt(realTc);
-                            if(!tC.equals(decrypted)){
-                                Toast.makeText(ConfirmBuyCardActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                            }
-                            else{
-                                doTransaction();
-                                dialog.dismiss();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        BCrypt.Result result = BCrypt.verifyer().verify(tC.toCharArray(),realTc);
+                        if(!result.verified){
                             Toast.makeText(ConfirmBuyCardActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                        else{
+                            doTransaction();
                             dialog.dismiss();
                         }
                     }

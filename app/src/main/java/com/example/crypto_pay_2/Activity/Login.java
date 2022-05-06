@@ -2,7 +2,10 @@ package com.example.crypto_pay_2.Activity;
 
 import static com.example.crypto_pay_2.R.id;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -32,6 +35,9 @@ public class Login extends AppCompatActivity {
     Button loginButton;
     TextView forgotPass;
 
+    String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
+    public static final int MY_REQUEST_CODE = 4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,8 @@ public class Login extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
+        checkRequestPermission();
 
         initUI();
 
@@ -112,5 +120,13 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void checkRequestPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            if(checkSelfPermission(permissions[0]) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(permissions[1]) != PackageManager.PERMISSION_GRANTED){
+                requestPermissions(permissions, MY_REQUEST_CODE);
+            }
+        }
     }
 }

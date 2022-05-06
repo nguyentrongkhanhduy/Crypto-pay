@@ -179,9 +179,9 @@ public class PhoneCardsListActivity extends AppCompatActivity {
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+                        ref.orderByChild("mail").equalTo(my_email).addChildEventListener(new ChildEventListener() {
                             @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                                 String userId = "";
                                 for (DataSnapshot child : snapshot.getChildren()){
                                     userId = child.getKey().toString();
@@ -195,6 +195,21 @@ public class PhoneCardsListActivity extends AppCompatActivity {
                             }
 
                             @Override
+                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                            }
+
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                            }
+
+                            @Override
                             public void onCancelled(@NonNull DatabaseError error) {
 
                             }
@@ -202,4 +217,6 @@ public class PhoneCardsListActivity extends AppCompatActivity {
                     }
                 }).setNegativeButton("Cancel", null).show();
     }
+
+
 }

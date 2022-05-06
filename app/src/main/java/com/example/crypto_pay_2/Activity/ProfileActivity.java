@@ -110,6 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void  getInfo(){
+
         Uri photoUrl = currentUser.getPhotoUrl();
         Glide.with(this).load(photoUrl).error(R.drawable.avatardefault).into(avatar);
 

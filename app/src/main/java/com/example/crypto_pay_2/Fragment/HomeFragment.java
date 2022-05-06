@@ -120,6 +120,8 @@ public class HomeFragment extends Fragment {
 
         getInfo();
 
+        Uri photoUrl = currentUser.getPhotoUrl();
+        Glide.with(getActivity()).load(photoUrl).error(R.drawable.avatardefault).into(profile);
         // Inflate the layout for this fragment
         return view;
     }
@@ -143,8 +145,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getInfo(){
-        Uri photoUrl = currentUser.getPhotoUrl();
-        Glide.with(getActivity()).load(photoUrl).error(R.drawable.avatardefault).into(profile);
+
 
         ref.orderByChild("mail").equalTo(my_email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

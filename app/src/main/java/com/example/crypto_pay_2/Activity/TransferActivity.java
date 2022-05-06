@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.crypto_pay_2.AESCrypt;
@@ -26,6 +27,7 @@ import com.example.crypto_pay_2.Model.History;
 import com.example.crypto_pay_2.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +38,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 public class TransferActivity extends AppCompatActivity {
 
@@ -172,10 +176,9 @@ public class TransferActivity extends AppCompatActivity {
                     Toast.makeText(TransferActivity.this, "Vui lòng nhập khoảng muốn giao dịch!", Toast.LENGTH_SHORT).show();
                 }
                 else{
-
-                    ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+                    ref.orderByChild("mail").equalTo(my_email).addChildEventListener(new ChildEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             Intent intent = new Intent(TransferActivity.this, RecieveActivity.class);
                             intent.putExtra("type",coin.getText().toString());
                             intent.putExtra("amount",transferCoin.getText().toString());
@@ -184,6 +187,21 @@ public class TransferActivity extends AppCompatActivity {
                                 intent.putExtra("phone",child.child("phone").getValue().toString());
                             }
                             startActivity(intent);
+                        }
+
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                        }
+
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
                         }
 
                         @Override
@@ -320,9 +338,8 @@ public class TransferActivity extends AppCompatActivity {
                         for (DataSnapshot child: snapshot.getChildren()){
                             realTc = child.child("transactionCode").getValue().toString();
                         }
-                        try {
-                            String decrypted = AESCrypt.decrypt(realTc);
-                            if(!tC.equals(decrypted)){
+                            BCrypt.Result result = BCrypt.verifyer().verify(tC.toCharArray(),realTc);
+                            if(!result.verified){
                                 Toast.makeText(TransferActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
                             }
@@ -330,11 +347,6 @@ public class TransferActivity extends AppCompatActivity {
                                 doTransaction();
                                 dialog.dismiss();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Toast.makeText(TransferActivity.this, "Mã xác thực không đúng!", Toast.LENGTH_SHORT).show();
-                            dialog.dismiss();
-                        }
                     }
 
                     @Override

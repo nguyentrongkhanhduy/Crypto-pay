@@ -33,6 +33,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class SecondaryPasswordActivity extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -153,9 +155,10 @@ public class SecondaryPasswordActivity extends AppCompatActivity {
 
         entropy = obj.toString();
 
+        String hashPassword = BCrypt.withDefaults().hashToString(12, transactionCode.toCharArray());
         String encrypted = AESCrypt.encrypt(transactionCode);
 
-        User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,entropy,encrypted);
+        User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,entropy,hashPassword);
         user.child(nextChild).setValue(registered);
         Coin newCoin = new Coin(0,0,0);
         user.child(nextChild).child("own").setValue(newCoin);

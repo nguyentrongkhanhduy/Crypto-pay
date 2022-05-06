@@ -15,8 +15,7 @@ import com.example.crypto_pay_2.R;
 
 public class StartAction extends AppCompatActivity {
 
-    String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE};
-    public static final int MY_REQUEST_CODE = 4;
+
 
     Button registerButton;
     Button returnButton;
@@ -29,7 +28,6 @@ public class StartAction extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_start_action);
 
-        checkRequestPermission();
 
         initUI();
 
@@ -58,13 +56,7 @@ public class StartAction extends AppCompatActivity {
         });
     }
 
-    private void checkRequestPermission(){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if(checkSelfPermission(permissions[0]) != PackageManager.PERMISSION_GRANTED || checkSelfPermission(permissions[1]) != PackageManager.PERMISSION_GRANTED){
-                requestPermissions(permissions, MY_REQUEST_CODE);
-            }
-        }
-    }
+
 
 
 }

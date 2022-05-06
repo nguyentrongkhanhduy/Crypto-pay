@@ -10,10 +10,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.crypto_pay_2.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -71,9 +73,9 @@ public class QrActivity extends AppCompatActivity {
     }
 
     private void getInfo(){
-        ref.orderByChild("mail").equalTo(my_email).addValueEventListener(new ValueEventListener() {
+        ref.orderByChild("mail").equalTo(my_email).addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 String value = "";
                 for (DataSnapshot child : snapshot.getChildren()){
                     phone.setText(String.valueOf(child.child("phone").getValue()));
@@ -82,6 +84,21 @@ public class QrActivity extends AppCompatActivity {
                 }
                 generateQR(value);
                 loadingPB.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
             }
 
             @Override
