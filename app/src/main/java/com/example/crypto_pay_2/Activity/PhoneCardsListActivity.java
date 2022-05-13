@@ -182,11 +182,8 @@ public class PhoneCardsListActivity extends AppCompatActivity {
                         ref.orderByChild("mail").equalTo(my_email).addChildEventListener(new ChildEventListener() {
                             @Override
                             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                String userId = "";
-                                for (DataSnapshot child : snapshot.getChildren()){
-                                    userId = child.getKey().toString();
-                                    break;
-                                }
+                                String userId = snapshot.getKey();
+
                                 ref.child(userId).child("phonecard").child(phoneCard.getId()).child("isUsed").setValue("1");
                                 finish();
                                 overridePendingTransition( 0, 0);

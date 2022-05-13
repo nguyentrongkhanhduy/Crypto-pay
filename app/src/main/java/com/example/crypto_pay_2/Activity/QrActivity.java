@@ -76,12 +76,8 @@ public class QrActivity extends AppCompatActivity {
         ref.orderByChild("mail").equalTo(my_email).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String value = "";
-                for (DataSnapshot child : snapshot.getChildren()){
-                    phone.setText(String.valueOf(child.child("phone").getValue()));
-                    value = String.valueOf(child.child("phone").getValue());
-                    break;
-                }
+                String value = snapshot.child("phone").getValue().toString();
+                phone.setText(String.valueOf(value));
                 generateQR(value);
                 loadingPB.setVisibility(View.GONE);
             }

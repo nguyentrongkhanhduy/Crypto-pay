@@ -182,10 +182,9 @@ public class TransferActivity extends AppCompatActivity {
                             Intent intent = new Intent(TransferActivity.this, RecieveActivity.class);
                             intent.putExtra("type",coin.getText().toString());
                             intent.putExtra("amount",transferCoin.getText().toString());
-                            for(DataSnapshot child: snapshot.getChildren()){
-                                intent.putExtra("name",child.child("name").getValue().toString());
-                                intent.putExtra("phone",child.child("phone").getValue().toString());
-                            }
+                            intent.putExtra("name",snapshot.child("name").getValue().toString());
+                            intent.putExtra("phone",snapshot.child("phone").getValue().toString());
+
                             startActivity(intent);
                         }
 
