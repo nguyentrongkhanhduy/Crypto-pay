@@ -39,14 +39,109 @@
             android:indeterminateTint="#FEE300"
             android:visibility="gone"/>
 
+        <EditText
+            android:id="@+id/searchHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            android:focusable="auto"
+            android:hint="Tìm kiếm"
+            android:textColor="@color/black"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/filter_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_below="@id/searchHistory">
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <RadioButton
+                    android:id="@+id/filter_all"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:background="@drawable/brand_selection"
+                    android:button="@android:color/transparent"
+                    android:textAlignment="center"
+                    android:text="Tất cả"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <RadioButton
+                    android:id="@+id/filter_deposit"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/brand_selection"
+                    android:button="@android:color/transparent"
+                    android:textAlignment="center"
+                    android:text="Nạp Coin"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <RadioButton
+                    android:id="@+id/filter_withdraw"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/brand_selection"
+                    android:button="@android:color/transparent"
+                    android:textAlignment="center"
+                    android:text="Rút Coin"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <RadioButton
+                    android:id="@+id/filter_transfer"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/brand_selection"
+                    android:button="@android:color/transparent"
+                    android:textAlignment="center"
+                    android:text="Chuyển - nhận"
+                    android:layout_marginEnd="5dp"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+                <RadioButton
+                    android:id="@+id/filter_buy"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/brand_selection"
+                    android:button="@android:color/transparent"
+                    android:textAlignment="center"
+                    android:text="Thanh toán"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
+
+            </RadioGroup>
+
+        </androidx.cardview.widget.CardView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_history"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/filter_frame"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="65dp"
             android:nestedScrollingEnabled="false"
             tools:listitem="@layout/item_history" />
 

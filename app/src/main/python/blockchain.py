@@ -17,7 +17,7 @@ class transmitData:
 
 def createUser(id, entropy):
     Clientsocket = socket.socket()
-    host = "192.168.11.130"
+    host = "192.168.1.16"
     port = 12345
     try:
         Clientsocket.connect((host, port))
@@ -31,7 +31,7 @@ def createUser(id, entropy):
 
 def widthdraw(amount , address):
     Clientsocket = socket.socket()
-    host = "192.168.11.130"
+    host = "192.168.1.16"
     port = 12345
     try:
         Clientsocket.connect((host, port))

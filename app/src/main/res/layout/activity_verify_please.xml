@@ -50,14 +50,14 @@
                 android:text="Gửi lại"
                 android:textSize="17dp"/>
 
-<!--            <Button-->
-<!--                android:id="@+id/log_out_button"-->
-<!--                android:layout_width="300dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:backgroundTint="#FF7800"-->
-<!--                android:text="Đăng xuất (test only)"-->
-<!--                android:textSize="17dp"/>-->
+            <Button
+                android:id="@+id/log_out_button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="#FF7800"
+                android:text="Đăng xuất (test only)"
+                android:textSize="17dp"/>
 
         </LinearLayout>
 

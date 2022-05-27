@@ -42,15 +42,15 @@ public class VerifyPleaseActivity extends AppCompatActivity {
             }
         });
 
-//        testLogout = findViewById(R.id.log_out_button);
-//        testLogout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FirebaseAuth.getInstance().signOut();
-//                Intent intent = new Intent(VerifyPleaseActivity.this, Login.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        testLogout = findViewById(R.id.log_out_button);
+        testLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(VerifyPleaseActivity.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 }

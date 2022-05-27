@@ -1,10 +1,16 @@
 package com.example.crypto_pay_2.Fragment;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -91,6 +97,13 @@ public class HistoryFragment extends Fragment {
     private MainPage mainPage;
     private TextView noNoti;
 
+    private EditText searchHis;
+
+    private RadioButton filterAll;
+    private RadioButton filterDep;
+    private RadioButton filterWit;
+    private RadioButton filterTra;
+    private RadioButton filterBuy;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -101,6 +114,8 @@ public class HistoryFragment extends Fragment {
         initUI(view);
 
         getInfo();
+
+        createUI();
 
         // Inflate the layout for this fragment
         return view;
@@ -120,6 +135,16 @@ public class HistoryFragment extends Fragment {
         historyAdapter = new HistoryAdapter(mListHistory);
 
         rvHistory.setAdapter(historyAdapter);
+
+        searchHis = view.findViewById(R.id.searchHistory);
+
+        filterAll = view.findViewById(R.id.filter_all);
+        filterDep = view.findViewById(R.id.filter_deposit);
+        filterWit = view.findViewById(R.id.filter_withdraw);
+        filterTra = view.findViewById(R.id.filter_transfer);
+        filterBuy = view.findViewById(R.id.filter_buy);
+
+        filterAll.setChecked(true);
     }
 
 
@@ -175,4 +200,58 @@ public class HistoryFragment extends Fragment {
             }
         });
         }
+
+    private void createUI() {
+        searchHis.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                historyAdapter.getFilter().filter(editable.toString());
+            }
+        });
+
+        filterAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                historyAdapter.getFilter().filter("");
+            }
+        });
+
+        filterDep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                historyAdapter.getFilter().filter("Nạp");
+            }
+        });
+
+        filterWit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                historyAdapter.getFilter().filter("Rút");
+            }
+        });
+
+        filterTra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                historyAdapter.getFilter().filter("Giao");
+            }
+        });
+
+        filterBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                historyAdapter.getFilter().filter("Mua");
+            }
+        });
+    }
 }

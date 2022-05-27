@@ -3,6 +3,8 @@ package com.example.crypto_pay_2.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,14 +13,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.crypto_pay_2.Model.History;
 import com.example.crypto_pay_2.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>{
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> implements Filterable {
 
     private List<History> mListHistory;
+    private List<History> mListHistoryOld;
 
     public HistoryAdapter(List<History> mListHistory) {
         this.mListHistory = mListHistory;
+        this.mListHistoryOld = mListHistory;
     }
 
     @NonNull
@@ -51,6 +56,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
         return 0;
     }
 
+
+
     public class HistoryViewHolder extends RecyclerView.ViewHolder{
 
         private TextView name;
@@ -74,5 +81,42 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             message = itemView.findViewById(R.id.message);
 
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String strSearch = charSequence.toString();
+                if(strSearch.isEmpty()){
+                    mListHistory = mListHistoryOld;
+                }else{
+                    List<History> newListHistory = new ArrayList<>();
+                    for (History history : mListHistoryOld){
+                        if(history.getName().toLowerCase().contains(strSearch.toLowerCase())){
+                            newListHistory.add(history);
+                        }
+                        else if (history.getFrom().toLowerCase().contains(strSearch.toLowerCase())){
+                            newListHistory.add(history);
+                        }
+                        else if (history.getTo().toLowerCase().contains(strSearch.toLowerCase())){
+                            newListHistory.add(history);
+                        }
+                    }
+                    mListHistory = newListHistory;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mListHistory;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mListHistory = (List<History>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 }

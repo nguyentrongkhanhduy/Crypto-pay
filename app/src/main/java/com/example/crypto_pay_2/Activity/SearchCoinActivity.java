@@ -112,7 +112,7 @@ public class SearchCoinActivity extends AppCompatActivity {
         // weather the list is empty or not.
         if (filteredlist.isEmpty()) {
             // if list is empty we are displaying a toast message.
-            Toast.makeText(this, "No currency found...", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "No currency found...", Toast.LENGTH_SHORT).show();
         } else {
             // on below line we are calling a filter
             // list method to filter our list.

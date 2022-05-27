@@ -11,13 +11,21 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.crypto_pay_2.R;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterPage extends AppCompatActivity {
 
-
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user");
 
     ImageButton backButton;
     EditText email;
@@ -80,15 +88,35 @@ public class RegisterPage extends AppCompatActivity {
                     Toast.makeText(RegisterPage.this,"Sai mật khẩu!", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Intent intent = new Intent(RegisterPage.this, SecondaryPasswordActivity.class);
-                    intent.putExtra("email",txt_email);
-                    intent.putExtra("password",txt_password);
-                    intent.putExtra("name",txt_name);
-                    intent.putExtra("phone",txt_phone);
-                    startActivity(intent);
-//                    registerUser(txt_email,txt_password,txt_name,txt_phone);
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot child : snapshot.getChildren()){
+                                if(txt_email.equals(child.child("mail").getValue().toString())){
+                                    email.setError("Email đã được sử dụng!");
+                                    return;
+                                }
+                                if(txt_phone.equals(child.child("phone").getValue().toString())){
+                                    phone.setError("Số điện thoại đã được sử dụng!");
+                                    return;
+                                }
+                            }
+                            Intent intent = new Intent(RegisterPage.this, SecondaryPasswordActivity.class);
+                            intent.putExtra("email",txt_email);
+                            intent.putExtra("password",txt_password);
+                            intent.putExtra("name",txt_name);
+                            intent.putExtra("phone",txt_phone);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
         });
     }
+
 }

@@ -39,7 +39,7 @@
             android:background="@drawable/bg_white_corner_10dp_border_grey"
             android:layout_marginTop="16dp"
             android:hint="Mã xác thực"
-            android:inputType="number"
+            android:inputType="numberPassword"
             android:maxLength="8"/>
 
         <LinearLayout
