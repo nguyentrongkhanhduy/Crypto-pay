@@ -160,7 +160,7 @@ public class WalletFragment extends Fragment {
     }
 
     void getInfo(){
-        String[] item = {"bitcoin","ethereum","lvcoin"};
+        String[] item = {"bitcoin","ethereum","lvcoin", "usd"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.dropdown,item);
         autoCplt.setAdapter(adapter);
 

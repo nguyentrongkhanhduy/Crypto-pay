@@ -5,10 +5,13 @@ public class Coin {
     int ethereum;
     int lvcoin;
 
-    public Coin(int Bitcoin, int Ethereum, int lvcoin) {
+    int usd;
+
+    public Coin(int Bitcoin, int Ethereum, int lvcoin, int usd) {
         this.bitcoin = Bitcoin;
         this.ethereum = Ethereum;
         this.lvcoin = lvcoin;
+        this.usd = usd;
     }
 
     public int getBitcoin() {
@@ -33,5 +36,13 @@ public class Coin {
 
     public void setLvcoin(int lvcoin) {
         this.lvcoin = lvcoin;
+    }
+
+    public int getUsd() {
+        return usd;
+    }
+
+    public void setUsd(int usd) {
+        this.usd = usd;
     }
 }

@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.crypto_pay_2.Activity.BuyCardActivity;
+import com.example.crypto_pay_2.Activity.BuyCoinActivity;
 import com.example.crypto_pay_2.Activity.ConvertActivity;
 import com.example.crypto_pay_2.Activity.DepositActivity;
 import com.example.crypto_pay_2.Activity.NotificationActivity;
@@ -102,6 +103,7 @@ public class HomeFragment extends Fragment {
     ImageView graph;
     ImageView exchange;
     ImageView buy;
+    ImageView buyCoin;
     ImageButton notification;
     TextView numberNotification;
 
@@ -138,6 +140,8 @@ public class HomeFragment extends Fragment {
         graph = (ImageView) view.findViewById(R.id.graph_button);
         exchange = (ImageView) view.findViewById(R.id.exchange_button);
         buy = (ImageView) view.findViewById(R.id.buy_button);
+        buyCoin= view.findViewById(R.id.buy_sell_coin);
+
         notification = (ImageButton) view.findViewById(R.id.notification);
         numberNotification = (TextView) view.findViewById(R.id.number_noti);
         loadingPB = view.findViewById(R.id.idPBLoading);
@@ -167,7 +171,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        String[] item = {"bitcoin","ethereum","lvcoin"};
+        String[] item = {"bitcoin","ethereum","lvcoin", "usd"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.dropdown,item);
         autoCplt.setAdapter(adapter);
 
@@ -270,6 +274,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        buyCoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), BuyCoinActivity.class);
+                startActivity(intent);
+            }
+        });
+
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -278,8 +290,4 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
-
-
 }

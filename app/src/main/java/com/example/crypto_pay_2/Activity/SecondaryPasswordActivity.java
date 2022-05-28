@@ -160,7 +160,7 @@ public class SecondaryPasswordActivity extends AppCompatActivity {
 
         User registered = new User(name,phone,email,unknown,unknown,unknown,unknown,unknown,unknown,unknown,unknown,entropy,hashPassword);
         user.child(nextChild).setValue(registered);
-        Coin newCoin = new Coin(0,0,0);
+        Coin newCoin = new Coin(0,0,0, 0);
         user.child(nextChild).child("own").setValue(newCoin);
 
         ClientThread clientThread = new ClientThread(entropy,nextChild);
